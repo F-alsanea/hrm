@@ -47,7 +47,6 @@ const App: React.FC = () => {
     if (window.confirm(t.confirmClear)) { setHistory([]); localStorage.removeItem('alkaki_history'); }
   };
 
-  // ✅ بنية آمنة تضمن أن TypeScript يعرف حالة المستخدم
   if (!user) {
     return (
       <div className={`min-h-screen theme-${theme}`}>
@@ -109,4 +108,5 @@ const App: React.FC = () => {
     </div>
   );
 };
+
 export default App;
