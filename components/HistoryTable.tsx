@@ -10,38 +10,38 @@ interface HistoryTableProps {
 
 export const HistoryTable: React.FC<HistoryTableProps> = ({ history, onClear, lang, t }) => {
   return (
-    <div className="glass-card shadow-[0_32px_64px_-12px_rgba(0,0,0,0.1)] overflow-hidden mb-24 animate-slideUp">
-      <div className="p-8 md:p-12 border-b border-gray-100/10 flex flex-col sm:flex-row justify-between items-center gap-8 bg-white/[0.02]">
+    <div className="glass-card shadow-2xl overflow-hidden mb-16 animate-slideUp">
+      <div className="p-6 md:p-8 border-b border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6 bg-white/[0.02]">
         <div className="text-center sm:text-right">
-          <h3 className="text-2xl md:text-3xl font-black text-heading tracking-tight uppercase leading-none">{t.history}</h3>
-          <p className="text-[10px] text-muted font-black uppercase tracking-[0.4em] mt-3 opacity-60">System Recruitment Logs</p>
+          <h3 className="text-xl md:text-2xl font-black text-heading uppercase leading-none">{t.history}</h3>
+          <p className="text-[9px] text-muted font-bold uppercase tracking-wider mt-2 opacity-50">System Logs</p>
         </div>
-        <button onClick={onClear} className="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-8 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest border border-red-500/20 transition-all shadow-xl">{t.clearHistory}</button>
+        <button onClick={onClear} className="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-6 py-3 rounded-xl font-black uppercase text-[9px] border border-red-500/20 transition-all shadow-lg">{t.clearHistory}</button>
       </div>
       <div className="overflow-x-auto">
         <table className={`w-full ${lang === 'ar' ? 'text-right' : 'text-left'} border-collapse`}>
           <thead>
-            <tr className="bg-black/[0.02] text-heading border-b border-gray-100/5">
-              <th className="px-10 py-8 font-black text-[11px] uppercase tracking-widest opacity-50">{t.timestamp}</th>
-              <th className="px-10 py-8 font-black text-[11px] uppercase tracking-widest opacity-50">{t.actionType}</th>
-              <th className="px-10 py-8 font-black text-[11px] uppercase tracking-widest opacity-50">{t.candidateName}</th>
-              <th className="px-10 py-8 font-black text-[11px] uppercase tracking-widest opacity-50">{t.sender}</th>
+            <tr className="bg-black/10 text-heading border-b border-white/5">
+              <th className="px-6 py-4 font-black text-[10px] uppercase opacity-40">{t.timestamp}</th>
+              <th className="px-6 py-4 font-black text-[10px] uppercase opacity-40">{t.actionType}</th>
+              <th className="px-6 py-4 font-black text-[10px] uppercase opacity-40">{t.candidateName}</th>
+              <th className="px-6 py-4 font-black text-[10px] uppercase opacity-40">{t.sender}</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100/5">
+          <tbody className="divide-y divide-white/5">
             {history.length === 0 ? (
-              <tr><td colSpan={4} className="px-10 py-32 text-center text-muted font-black uppercase text-[11px] tracking-[0.3em] opacity-30">{t.noHistory}</td></tr>
+              <tr><td colSpan={4} className="px-6 py-20 text-center text-muted font-bold uppercase text-[10px] opacity-20">{t.noHistory}</td></tr>
             ) : (
               history.map((log) => (
-                <tr key={log.id} className="hover:bg-blue-500/[0.02] transition-colors group">
-                  <td className="px-10 py-6 text-[11px] font-mono text-muted opacity-60">{log.timestamp}</td>
-                  <td className="px-10 py-6">
-                    <span className="px-4 py-1.5 rounded-xl text-[9px] font-black bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 uppercase tracking-widest">
+                <tr key={log.id} className="hover:bg-blue-500/[0.03] transition-colors group">
+                  <td className="px-6 py-4 text-[10px] font-mono text-muted opacity-50">{log.timestamp}</td>
+                  <td className="px-6 py-4">
+                    <span className="px-3 py-1 rounded-lg text-[8px] font-black bg-blue-500/10 text-blue-500 border border-blue-500/10 uppercase">
                       {log.type}
                     </span>
                   </td>
-                  <td className="px-10 py-6 font-black text-sm text-heading">{log.candidateName}</td>
-                  <td className="px-10 py-6 text-[10px] font-black text-muted uppercase tracking-widest opacity-70">{log.sender}</td>
+                  <td className="px-6 py-4 font-bold text-sm text-heading">{log.candidateName}</td>
+                  <td className="px-6 py-4 text-[9px] font-black text-muted uppercase opacity-60">{log.sender}</td>
                 </tr>
               ))
             )}

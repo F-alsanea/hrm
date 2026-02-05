@@ -159,6 +159,10 @@ const App: React.FC = () => {
           outline: none;
           font-size: 14px;
         }
+        select option {
+          background-color: var(--bg-input);
+          color: var(--text-input);
+        }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
         }
@@ -166,6 +170,7 @@ const App: React.FC = () => {
           border-color: #3b82f6; 
           box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
+
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
