@@ -1,0 +1,5 @@
+{
+  "name": "Al-Kaki Group Recruitment Messaging System",
+  "description": "A professional web application for managing and sending recruitment messages via WhatsApp, converted from Excel to a modern React interface.",
+  "requestFramePermissions": []
+}
