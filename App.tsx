@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MessageType, MessageLog, User, Language, ThemeMode } from './types';
 import Sidebar from './components/Sidebar';
@@ -20,7 +19,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const savedUser = localStorage.getItem('alkaki_user');
     if (savedUser) setUser(JSON.parse(savedUser));
-
+    
     const savedHistory = localStorage.getItem('alkaki_history');
     if (savedHistory) setHistory(JSON.parse(savedHistory));
 
@@ -76,10 +75,10 @@ const App: React.FC = () => {
 
   return (
     <div className={`flex flex-col md:flex-row h-screen font-sans theme-${theme} bg-page transition-colors duration-500 overflow-hidden`}>
-      <Sidebar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        user={user}
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        user={user} 
         onLogout={handleLogout}
         theme={theme}
         setTheme={setTheme}
@@ -88,7 +87,7 @@ const App: React.FC = () => {
         t={t}
         access={{ canCompose, canViewHistory, canViewTemplates }}
       />
-
+      
       <main className="flex-1 p-4 md:p-8 overflow-y-auto flex flex-col relative">
         <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 animate-fadeIn">
           <div>
@@ -104,7 +103,7 @@ const App: React.FC = () => {
           {activeTab === 'composer' && canCompose && (
             <MessageComposer onSend={saveToHistory} lang={lang} user={user} t={t} />
           )}
-
+          
           {activeTab === 'history' && canViewHistory && (
             <HistoryTable history={history} onClear={clearHistory} lang={lang} t={t} />
           )}
@@ -118,64 +117,79 @@ const App: React.FC = () => {
           {t.footer}
         </footer>
       </main>
-
+      
       <style>{`
         :root {
           --transition-speed: 0.4s;
         }
+
+        * {
+          font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+        }
+        
+        body {
+          line-height: 1.6;
+        }
         
         .theme-light { 
-          --bg-page: #ffffff; 
-          --bg-glass: rgba(255, 255, 255, 0.95); 
-          --text-heading: #000000; 
-          --text-muted: #1a1a1a; 
-          --bg-sidebar: #000000; 
+          --bg-page: #f8fafc; 
+          --bg-glass: rgba(255, 255, 255, 0.85); 
+          --text-heading: #0f172a; 
+          --text-muted: #64748b; 
+          --bg-sidebar: #1e293b; 
           --bg-input: #ffffff;
-          --text-input: #000000;
-          --border-input: #000000;
-          --accent: #000000;
+          --text-input: #0f172a;
+          --border-input: #cbd5e1;
+          --accent: #2563eb;
         }
         
         .theme-dark { 
-          --bg-page: #000000; 
-          --bg-glass: rgba(0, 0, 0, 0.95); 
-          --text-heading: #ffffff; 
-          --text-muted: #e5e5e5; 
-          --bg-sidebar: #1a1a1a; 
-          --bg-input: #000000;
-          --text-input: #ffffff;
-          --border-input: #ffffff;
-          --accent: #ffffff;
+          --bg-page: #020617; 
+          --bg-glass: rgba(15, 23, 42, 0.85); 
+          --text-heading: #f8fafc; 
+          --text-muted: #94a3b8; 
+          --bg-sidebar: #000000; 
+          --bg-input: #1e293b;
+          --text-input: #f8fafc;
+          --border-input: #334155;
+          --accent: #3b82f6;
         }
         
         .theme-sepia { 
           --bg-page: #fdf6e3; 
-          --bg-glass: rgba(253, 246, 227, 0.98); 
-          --text-heading: #5c4b37; 
-          --text-muted: #5c4b37; 
+          --bg-glass: rgba(253, 246, 227, 0.95); 
+          --text-heading: #433422; 
+          --text-muted: #736757; 
           --bg-sidebar: #433422; 
           --bg-input: #fffcf0;
-          --text-input: #5c4b37;
-          --border-input: #5c4b37;
-          --accent: #8b4513;
+          --text-input: #433422;
+          --border-input: #e6dfc8;
+          --accent: #af5f00;
         }
         
         .bg-page { background-color: var(--bg-page); }
-        .glass-card { background: var(--bg-glass); backdrop-filter: blur(20px); border: 1px solid var(--border-input); }
-        .text-heading { color: var(--text-heading); }
+        .glass-card { 
+          background: var(--bg-glass); 
+          backdrop-filter: blur(16px); 
+          border: 1px solid var(--border-input); 
+          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .text-heading { color: var(--text-heading); letter-spacing: -0.01em; }
         .text-muted { color: var(--text-muted); }
 
         input, select, textarea {
           background-color: var(--bg-input) !important;
           color: var(--text-input) !important;
           border: 1px solid var(--border-input) !important;
-          padding: 12px !important;
-          transition: border-color 0.2s, box-shadow 0.2s;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 0.75rem !important;
+          padding: 0.75rem 1rem !important;
         }
 
         input:focus, select:focus {
           border-color: var(--accent) !important;
-          box-shadow: 0 0 0 4px rgba(31, 78, 120, 0.1);
+          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+          outline: none;
         }
 
         @keyframes fadeIn {
@@ -183,11 +197,11 @@ const App: React.FC = () => {
           to { opacity: 1; }
         }
         @keyframes slideUp {
-          from { opacity: 0; transform: translateY(30px); }
+          from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fadeIn { animation: fadeIn 0.6s ease-out; }
-        .animate-slideUp { animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+        .animate-slideUp { animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
       `}</style>
     </div>
   );
