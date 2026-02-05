@@ -1,14 +1,13 @@
-
 import { MessageType, Template } from './types';
 
 export const LOCATIONS = [
-  { id: 'office', name: { ar: 'الإدارة الرئيسية', en: 'Head Office' }, link: 'https://maps.app.goo.gl/VWJaf34hKTnFU8JAA' },
-  { id: 'zikaki', name: { ar: 'مطعم زيكاكي', en: 'Zikaki Restaurant' }, link: 'https://maps.app.goo.gl/ZikakiLink' },
-  { id: 'shorafa', name: { ar: 'قاعة الشرافة', en: 'Al Shorafa Hall' }, link: 'https://maps.app.goo.gl/ShorafaLink' },
-  { id: 'stagioni', name: { ar: 'مطعم سيزيوني', en: 'Stagioni Restaurant' }, link: 'https://maps.app.goo.gl/StagioniLink' },
-  { id: 'albay_m', name: { ar: 'مخبز الباي المحمدية', en: 'Al Bay Bakery - Muhammadiyah' }, link: 'https://maps.app.goo.gl/AlBayMuhammadiyah' },
-  { id: 'albay_z', name: { ar: 'مخبز الباي الزهراء', en: 'Al Bay Bakery - Al Zahra' }, link: 'https://maps.app.goo.gl/AlBayZahra' },
-  { id: 'gabbiano', name: { ar: 'مطعم الجبيانو', en: 'Il Gabbiano Restaurant' }, link: 'https://maps.app.goo.gl/IlGabbiano' },
+  { id: 'office', name: { ar: 'الإدارة الرئيسية', en: 'Head Office' }, link: 'https://share.google/bORxL7ia6bWP2Ra6g' },
+  { id: 'zikaki', name: { ar: 'مطعم زيكاكي', en: 'Zikaki Restaurant' }, link: 'https://share.google/V9wxnLOl7LOT4nk2Z' },
+  { id: 'shorafa', name: { ar: 'قاعة الشرافة', en: 'Al Shorafa Hall' }, link: 'https://share.google/4TycEk9aGKDDfRfBp' },
+  { id: 'stagioni', name: { ar: 'مطعم سيزيوني', en: 'Stagioni Restaurant' }, link: 'https://share.google/C8S6VVZXWLxiot5mm' },
+  { id: 'albay_m', name: { ar: 'مخبز الباي المحمدية', en: 'Al Bay Bakery - Muhammadiyah' }, link: 'https://share.google/UwGTtXp90Mwiyrnjm' },
+  { id: 'albay_z', name: { ar: 'مخبز الباي الزهراء', en: 'Al Bay Bakery - Al Zahra' }, link: 'https://share.google/nuEnFBcWqfOM7Oa6C' },
+  { id: 'gabbiano', name: { ar: 'مطعم الجبيانو', en: 'Il Gabbiano Restaurant' }, link: 'https://share.google/819Ygav1fCeM5b51o' },
 ];
 
 export const DAYS = [
@@ -28,130 +27,32 @@ export const TEMPLATES: Record<MessageType, Template> = {
     type: MessageType.INTERVIEW,
     variables: ['name', 'place', 'date', 'day', 'time', 'location_link'],
     content: {
-      ar: `عزيزي المرشح/ عزيزتي المرشحة *{name}*،
-
-تحية طيبة،،
-
-يسرنا إبلاغكم بأنه تم اختياركم من بين عدد من المرشحين لإجراء مقابلة شخصية، وذلك ضمن إجراءات التوظيف في مجموعة الكعكي.
-
-تفاصيل المقابلة:
-المكان: *{place}*
-التاريخ: *{date}*
-اليوم: *{day}*
-الوقت: *{time}*
-
-رابط الموقع:
-{location_link}
-
-نأمل الالتزام بالحضور في الوقت المحدد.
-
-قسم التوظيف - مجموعة الكعكي`,
-      en: `Dear Candidate *{name}*,
-
-Greetings,,
-
-We are pleased to inform you that you have been selected for an interview at Al-Kaki Group.
-
-Interview Details:
-Location: *{place}*
-Date: *{date}*
-Day: *{day}*
-Time: *{time}*
-
-Location Link:
-{location_link}
-
-We look forward to your attendance at the scheduled time.
-
-Recruitment Department - Al-Kaki Group`
+      ar: `عزيزي المرشح/ عزيزتي المرشحة *{name}*،\n\nتحية طيبة،،\n\nيسرنا إبلاغكم بأنه تم اختياركم من بين عدد من المرشحين لإجراء مقابلة شخصية، وذلك ضمن إجراءات التوظيف في مجموعة الكعكي.\n\nتفاصيل المقابلة:\nالمكان: *{place}*\nالتاريخ: *{date}*\nاليوم: *{day}*\nالوقت: *{time}*\n\nرابط الموقع:\n{location_link}\n\nنأمل الالتزام بالحضور في الوقت المحدد.\n\nقسم التوظيف - مجموعة الكعكي`,
+      en: `Dear Candidate *{name}*,\n\nGreetings,,\n\nWe are pleased to inform you that you have been selected for an interview at Al-Kaki Group.\n\nInterview Details:\nLocation: *{place}*\nDate: *{date}*\nDay: *{day}*\nTime: *{time}*\n\nLocation Link:\n{location_link}\n\nWe look forward to your attendance at the scheduled time.\n\nRecruitment Department - Al-Kaki Group`
     }
   },
   [MessageType.REMINDER]: {
     type: MessageType.REMINDER,
     variables: ['name', 'place', 'location_link'],
     content: {
-      ar: `عزيزي/عزيزتي المرشح(ة) *{name}*،
-
-تحية طيبة،،
-
-نأمل تأكيد حضوركم لموعد المقابلة المقررة اليوم في: *{place}* – مجموعة الكعكي
-
-التفاصيل الكاملة للموقع في الرابط التالي:
-{location_link}
-
-شاكرين لكم تعاونكم، ونتمنى لكم كل التوفيق.
-
-قسم التوظيف - مجموعة الكعكي`,
-      en: `Dear Candidate *{name}*,
-
-Greetings,,
-
-We hope to confirm your attendance for the interview scheduled today at: *{place}* – Al-Kaki Group
-
-Full location details in the following link:
-{location_link}
-
-Thank you for your cooperation, we wish you the best of luck.
-
-Recruitment Department - Al-Kaki Group`
+      ar: `عزيزي/عزيزتي المرشح(ة) *{name}*،\n\nتحية طيبة،،\n\nنأمل تأكيد حضوركم لموعد المقابلة المقررة اليوم في: *{place}* – مجموعة الكعكي\n\nالتفاصيل الكاملة للموقع في الرابط التالي:\n{location_link}\n\nشاكرين لكم تعاونكم، ونتمنى لكم كل التوفيق.\n\nقسم التوظيف - مجموعة الكعكي`,
+      en: `Dear Candidate *{name}*,\n\nGreetings,,\n\nWe hope to confirm your attendance for the interview scheduled today at: *{place}* – Al-Kaki Group\n\nFull location details in the following link:\n{location_link}\n\nThank you for your cooperation, we wish you the best of luck.\n\nRecruitment Department - Al-Kaki Group`
     }
   },
   [MessageType.INFO_COLLECTION]: {
     type: MessageType.INFO_COLLECTION,
     variables: ['name', 'position', 'form_link'],
     content: {
-      ar: `عزيزي/عزيزتي المرشح *{name}*،
-
-نشكركم على اهتمامكم بالانضمام إلى مجموعة الكعكي.
-
-حرصًا منا على استكمال خطوات الترشيح المبدئي، نرجو منكم التكرم بالإجابة على النموذج المرفق حيث تم ترشيحكم للمسمى الوظيفي (*{position}*).
-
-رابط النموذج:
-{form_link}
-
-ملاحظة: في حال لم يكن المسمى الوظيفي المقترح مناسبًا لكم، نأمل منكم الرد بعبارة "غير مهتم".
-
-مع خالص التحية، قسم التوظيف – مجموعة الكعكي`,
-      en: `Dear Candidate *{name}*,
-
-Thank you for your interest in joining Al-Kaki Group.
-
-To complete the initial screening process, please fill out the attached form as you have been nominated for the position: (*{position}*).
-
-Form Link:
-{form_link}
-
-Note: If the proposed position is not suitable for you, please reply with "Not Interested".
-
-Best regards, Recruitment Department – Al-Kaki Group`
+      ar: `عزيزي/عزيزتي المرشح *{name}*،\n\nنشكركم على اهتمامكم بالانضمام إلى مجموعة الكعكي.\n\nحرصًا منا على استكمال خطوات الترشيح المبدئي، نرجو منكم التكرم بالإجابة على النموذج المرفق حيث تم ترشيحكم للمسمى الوظيفي (*{position}*).\n\nرابط النموذج:\n{form_link}\n\nملاحظة: في حال لم يكن المسمى الوظيفي المقترح مناسبًا لكم، نأمل منكم الرد بعبارة "غير مهتم".\n\nمع خالص التحية، قسم التوظيف – مجموعة الكعكي`,
+      en: `Dear Candidate *{name}*,\n\nThank you for your interest in joining Al-Kaki Group.\n\nTo complete the initial screening process, please fill out the attached form as you have been nominated for the position: (*{position}*).\n\nForm Link:\n{form_link}\n\nNote: If the proposed position is not suitable for you, please reply with "Not Interested".\n\nBest regards, Recruitment Department – Al-Kaki Group`
     }
   },
   [MessageType.REJECTION]: {
     type: MessageType.REJECTION,
     variables: ['name'],
     content: {
-      ar: `عزيزي/عزيزتي المرشح *{name}*،
-
-نشكر لك اهتمامك بشركتنا وتخصيص وقتك لحضور المقابلة الشخصية.
-
-بعد دراسة جميع الطلبات بعناية ومراجعة متطلبات الوظيفة، نأسف لإبلاغك بعدم اختيارك لهذه الفرصة في الوقت الحالي. نود التأكيد على أن هذا القرار يتعلق بمتطلبات الوظيفة ولا يعكس أي تقصير في مؤهلاتك أو قدراتك.
-
-كما يسعدنا الاحتفاظ ببياناتك في قاعدة بياناتنا للتواصل معك في حال توفر فرص تناسب خبراتك مستقبلاً.
-
-نتمنى لك كل التوفيق والنجاح في مسيرتك المهنية.
-
-تقبل منا خالص التحيات، مجموعة الكعكي`,
-      en: `Dear Candidate *{name}*,
-
-Thank you for your interest and for taking the time to attend the interview.
-
-After careful review of all applications and job requirements, we regret to inform you that you have not been selected for this opportunity at this time. We would like to emphasize that this decision relates to job requirements and does not reflect any deficiency in your qualifications.
-
-We are happy to keep your data in our database to contact you if future opportunities fit your experience.
-
-We wish you all the best and success in your career.
-
-Best regards, Al-Kaki Group`
+      ar: `عزيزي/عزيزتي المرشح *{name}*،\n\nنشكر لك اهتمامك بشركتنا وتخصيص وقتك لحضور المقابلة الشخصية.\n\nبعد دراسة جميع الطلبات بعناية ومراجعة متطلبات الوظيفة، نأسف لإبلاغك بعدم اختيارك لهذه الفرصة في الوقت الحالي. نود التأكيد على أن هذا القرار يتعلق بمتطلبات الوظيفة ولا يعكس أي تقصير في مؤهلاتك أو قدراتك.\n\nكما يسعدنا الاحتفاظ ببياناتك في قاعدة بياناتنا للتواصل معك في حال توفر فرص تناسب خبراتك مستقبلاً.\n\nنتمنى لك كل التوفيق والنجاح في مسيرتك المهنية.\n\nتقبل منا خالص التحيات، مجموعة الكعكي`,
+      en: `Dear Candidate *{name}*,\n\nThank you for your interest and for taking the time to attend the interview.\n\nAfter careful review of all applications and job requirements, we regret to inform you that you have not been selected for this opportunity at this time. We would like to emphasize that this decision relates to job requirements and does not reflect any deficiency in your qualifications.\n\nWe are happy to keep your data in our database to contact you if future opportunities fit your experience.\n\nWe wish you all the best and success in your career.\n\nBest regards, Al-Kaki Group`
     }
   }
 };
