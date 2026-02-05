@@ -44,7 +44,7 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
     const template = TEMPLATES[formData.type];
     let content = template.content[lang];
     const selectedLocation = LOCATIONS.find(l => l.id === formData.locationId);
-    
+
     content = content.replace(/{name}/g, formData.name || '______');
     content = content.replace(/{place}/g, selectedLocation?.name[lang] || '______');
     content = content.replace(/{location_link}/g, selectedLocation?.link || '______');
@@ -72,7 +72,7 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
       type: formData.type,
       candidateName: formData.name,
       phoneNumber: cleanPhone,
-      details: formData.type === MessageType.INFO_COLLECTION ? formData.position || '' : `${LOCATIONS.find(l=>l.id===formData.locationId)?.name[lang] || ''}`,
+      details: formData.type === MessageType.INFO_COLLECTION ? formData.position || '' : `${LOCATIONS.find(l => l.id === formData.locationId)?.name[lang] || ''}`,
       status: lang === 'ar' ? 'تم الإرسال' : 'Sent',
       sender: user.displayName,
       notes: ''
@@ -85,7 +85,7 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
       <div className="lg:col-span-7 glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-visible">
         <h3 className="text-xl md:text-2xl font-black text-heading mb-6 md:mb-10 flex items-center gap-4">
           <div className="w-10 h-10 md:w-12 md:h-12 bg-[#1f4e78] rounded-[1rem] flex items-center justify-center text-white shadow-lg">
-             <svg className="w-5 h-5 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" /></svg>
+            <svg className="w-5 h-5 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" /></svg>
           </div>
           <span className="tracking-tight">{t.details}</span>
         </h3>
@@ -101,19 +101,35 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
           </div>
 
           {formData.type === MessageType.INFO_COLLECTION && (
-            <div className="bg-blue-50/50 p-6 md:p-8 rounded-[2rem] border-2 border-[#1f4e78]/20 space-y-6 animate-fadeIn">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#1f4e78] rounded-lg flex items-center justify-center text-white font-bold">!</div>
-                <h4 className="font-black text-[#1f4e78] uppercase text-sm">{lang === 'ar' ? 'إعدادات جمع المعلومات' : 'Info Collection Settings'}</h4>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-widest">{t.position}</label>
-                  <input type="text" value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} className="w-full px-5 py-4 rounded-[1.2rem] font-bold" />
+            <div className="bg-[#1f4e78]/10 dark:bg-white/10 p-6 md:p-8 rounded-[2rem] border-2 border-[#1f4e78]/20 space-y-6 animate-fadeIn">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 bg-[#1f4e78] rounded-lg flex items-center justify-center text-white">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
                 </div>
-                <div>
-                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-widest">{t.formLink}</label>
-                  <input type="text" value={formData.formLink} onChange={(e) => setFormData({ ...formData, formLink: e.target.value })} className="w-full px-5 py-4 rounded-[1.2rem] font-mono text-[11px]" />
+                <h4 className="font-black text-[#1f4e78] dark:text-white uppercase text-sm tracking-tight">{lang === 'ar' ? 'إعدادات جمع المعلومات' : 'Info Collection Settings'}</h4>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="group">
+                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-[0.15em]">{t.position}</label>
+                  <input
+                    type="text"
+                    value={formData.position}
+                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                    className="w-full px-5 py-4 rounded-[1.2rem] outline-none shadow-sm font-bold border-2 border-transparent focus:border-[#1f4e78]/30 transition-all bg-white dark:bg-slate-800"
+                    placeholder={lang === 'ar' ? "مثلاً: مدير تسويق" : "e.g. Marketing Manager"}
+                  />
+                </div>
+                <div className="group">
+                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-[0.15em]">{t.formLink}</label>
+                  <input
+                    type="text"
+                    value={formData.formLink}
+                    onChange={(e) => setFormData({ ...formData, formLink: e.target.value })}
+                    className="w-full px-5 py-4 rounded-[1.2rem] outline-none shadow-sm font-mono text-[11px] font-bold border-2 border-transparent focus:border-[#1f4e78]/30 transition-all bg-white dark:bg-slate-800"
+                  />
                 </div>
               </div>
             </div>
@@ -145,8 +161,8 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
           <h3 className="text-lg md:text-xl font-black text-heading mb-6">{t.preview}</h3>
           <div className="bg-white/95 p-5 md:p-8 rounded-[1.5rem] text-[13px] md:text-sm text-gray-900 shadow-inner flex-1 font-bold overflow-y-auto max-h-[350px] md:max-h-[550px] whitespace-pre-wrap leading-relaxed">{preview}</div>
           <div className="mt-6 md:mt-10 space-y-4">
-             <button onClick={handleSend} className="w-full bg-[#1f4e78] text-white font-black py-4 md:py-6 px-6 rounded-[1.8rem] shadow-xl text-lg md:text-xl uppercase tracking-widest">{t.sendWhatsapp}</button>
-             <button onClick={() => { navigator.clipboard.writeText(preview); alert(t.copySuccess); }} className="w-full py-4 text-[#1f4e78] font-black text-[10px] uppercase bg-white/60 rounded-[1.5rem] border-2 border-white">{t.copySuccess}</button>
+            <button onClick={handleSend} className="w-full bg-[#1f4e78] text-white font-black py-4 md:py-6 px-6 rounded-[1.8rem] shadow-xl text-lg md:text-xl uppercase tracking-widest">{t.sendWhatsapp}</button>
+            <button onClick={() => { navigator.clipboard.writeText(preview); alert(t.copySuccess); }} className="w-full py-4 text-[#1f4e78] font-black text-[10px] uppercase bg-white/60 rounded-[1.5rem] border-2 border-white">{t.copySuccess}</button>
           </div>
         </div>
       </div>
