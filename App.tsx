@@ -51,11 +51,6 @@ const App: React.FC = () => {
     return (
       <div className={`min-h-screen theme-${theme}`}>
         <LoginPage onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }} lang={lang} setLang={setLang} />
-        <style>{`
-          * { font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif; }
-          body { margin: 0; line-height: 1.6; }
-          [dir="rtl"] { line-height: 1.8; }
-        `}</style>
       </div>
     );
   }
@@ -73,7 +68,7 @@ const App: React.FC = () => {
             <h1 className="text-2xl md:text-3xl font-black text-heading drop-shadow-md tracking-tight">{t.title}</h1>
             <p className="text-muted text-[10px] md:text-sm font-semibold mt-1 uppercase tracking-widest">{t.subtitle}</p>
           </div>
-          <div className="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-heading text-[10px] font-black border border-white/40 shadow-xl uppercase tracking-wider">
+          <div className="glass px-4 py-1.5 rounded-full text-heading text-[10px] font-black border border-white/40 shadow-xl uppercase tracking-wider">
             {new Date().toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
         </header>
@@ -83,30 +78,25 @@ const App: React.FC = () => {
           {activeTab === 'history' && canViewHistory && <HistoryTable history={history} onClear={clearHistory} lang={lang} t={t} />}
           {activeTab === 'templates' && canViewTemplates && <TemplateViewer lang={lang} t={t} />}
         </div>
-        
-        <footer className="mt-8 py-6 text-center border-t border-gray-500/10 text-muted text-[11px] font-black tracking-[0.3em] uppercase opacity-70">
-          {t.madeBy} <a href="https://www.linkedin.com/in/falsanea/" target="_blank" rel="noopener noreferrer" className="text-heading hover:underline transition-all">{t.author}</a>
-        </footer>
       </main>
 
       <style>{`
-        * { font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif; box-sizing: border-box; }
-        [dir="rtl"] { line-height: 1.8; letter-spacing: 0; }
-        body { margin: 0; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-        .theme-light { --bg-page: #f8fafc; --bg-glass: rgba(255, 255, 255, 0.85); --text-heading: #1e293b; --text-muted: #64748b; --border-input: #cbd5e1; --bg-input: #ffffff; --text-input: #1e293b; }
-        .theme-dark { --bg-page: #0f172a; --bg-glass: rgba(15, 23, 42, 0.85); --text-heading: #f8fafc; --text-muted: #94a3b8; --border-input: #334155; --bg-input: #1e293b; --text-input: #f8fafc; }
+        * { font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif; }
+        [dir="rtl"] * { line-height: 1.8; letter-spacing: 0; }
+        body { line-height: 1.6; }
+        .theme-light { --bg-page: #f8fafc; --bg-glass: rgba(255, 255, 255, 0.85); --text-heading: #0f172a; --text-muted: #64748b; --border-input: #cbd5e1; --bg-input: #ffffff; --text-input: #0f172a; }
+        .theme-dark { --bg-page: #020617; --bg-glass: rgba(15, 23, 42, 0.85); --text-heading: #f8fafc; --text-muted: #94a3b8; --border-input: #334155; --bg-input: #1e293b; --text-input: #f8fafc; }
         .bg-page { background-color: var(--bg-page); }
         .glass-card { background: var(--bg-glass); backdrop-filter: blur(16px); border: 1px solid var(--border-input); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        .text-heading { color: var(--text-heading); font-weight: 800; }
+        .text-heading { color: var(--text-heading); font-weight: 700; }
         .text-muted { color: var(--text-muted); font-weight: 500; }
-        input, select, textarea { background-color: var(--bg-input); color: var(--text-input); border: 1px solid var(--border-input); transition: all 0.2s; border-radius: 0.75rem; padding: 0.75rem 1rem; }
+        input, select, textarea { background-color: var(--bg-input) !important; color: var(--text-input) !important; border: 1px solid var(--border-input) !important; border-radius: 0.75rem !important; padding: 0.75rem 1rem !important; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fadeIn { animation: fadeIn 0.4s ease-out; }
-        .animate-slideUp { animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+        .animate-slideUp { animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
       `}</style>
     </div>
   );
 };
-
 export default App;
