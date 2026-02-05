@@ -40,7 +40,7 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
 
   const [preview, setPreview] = useState('');
 
-  useEffect(() => {
+  const updatePreview = () => {
     const template = TEMPLATES[formData.type];
     let content = template.content[lang];
     const selectedLocation = LOCATIONS.find(l => l.id === formData.locationId);
@@ -54,7 +54,9 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
     content = content.replace(/{time}/g, formData.time || '______');
     content = content.replace(/{position}/g, formData.position || '______');
     setPreview(content);
-  }, [formData, lang]);
+  };
+
+  useEffect(() => { updatePreview(); }, [formData, lang]);
 
   const handleSend = () => {
     if (!formData.name || !formData.phone) {
@@ -66,11 +68,11 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(preview)}`;
     onSend({
       id: Date.now().toString(),
-      timestamp: new Date().toLocaleString(),
+      timestamp: new Date().toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-US'),
       type: formData.type,
       candidateName: formData.name,
       phoneNumber: cleanPhone,
-      details: formData.type === MessageType.INFO_COLLECTION ? formData.position : LOCATIONS.find(l=>l.id===formData.locationId)?.name[lang],
+      details: formData.type === MessageType.INFO_COLLECTION ? formData.position || '' : `${LOCATIONS.find(l=>l.id===formData.locationId)?.name[lang] || ''}`,
       status: lang === 'ar' ? 'تم الإرسال' : 'Sent',
       sender: user.displayName,
       notes: ''
@@ -80,32 +82,56 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-start pb-20 lg:pb-0">
-      <div className="lg:col-span-7 glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl">
+      <div className="lg:col-span-7 glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-visible">
         <h3 className="text-xl md:text-2xl font-black text-heading mb-6 md:mb-10 flex items-center gap-4">
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-[#1f4e78] rounded-[1rem] flex items-center justify-center text-white shadow-lg">K</div>
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-[#1f4e78] rounded-[1rem] flex items-center justify-center text-white shadow-lg">
+             <svg className="w-5 h-5 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" /></svg>
+          </div>
           <span className="tracking-tight">{t.details}</span>
         </h3>
+
         <div className="space-y-6 md:space-y-8">
           <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full px-4 md:px-6 py-4 md:py-5 rounded-[1.2rem] md:rounded-[1.5rem] font-black text-heading">
             {Object.values(MessageType).map(type => <option key={type} value={type}>{type}</option>)}
           </select>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <input type="text" placeholder={t.candidateName} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full px-6 py-5" />
-            <input type="text" placeholder={t.phone} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full px-6 py-5" />
+            <input type="text" placeholder={t.candidateName} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]" />
+            <input type="text" placeholder={t.phone} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]" />
           </div>
-          <div className="bg-white/40 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/60 space-y-6 shadow-inner">
+
+          {formData.type === MessageType.INFO_COLLECTION && (
+            <div className="bg-blue-50/50 p-6 md:p-8 rounded-[2rem] border-2 border-[#1f4e78]/20 space-y-6 animate-fadeIn">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-[#1f4e78] rounded-lg flex items-center justify-center text-white font-bold">!</div>
+                <h4 className="font-black text-[#1f4e78] uppercase text-sm">{lang === 'ar' ? 'إعدادات جمع المعلومات' : 'Info Collection Settings'}</h4>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-widest">{t.position}</label>
+                  <input type="text" value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} className="w-full px-5 py-4 rounded-[1.2rem] font-bold" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-widest">{t.formLink}</label>
+                  <input type="text" value={formData.formLink} onChange={(e) => setFormData({ ...formData, formLink: e.target.value })} className="w-full px-5 py-4 rounded-[1.2rem] font-mono text-[11px]" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-white/40 p-6 md:p-10 rounded-[2.5rem] border border-white/60 space-y-8 shadow-inner">
             {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
-              <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-6 py-5">
+              <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]">
                 {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
               </select>
             )}
             {formData.type === MessageType.INTERVIEW && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full" />
-                <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fadeIn">
+                <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]" />
+                <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]">
                   {DAYS.map(day => <option key={day.en} value={day[lang]}>{day[lang]}</option>)}
                 </select>
-                <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full">
+                <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]">
                   {timeOptions.map(to => <option key={to.en} value={to[lang]}>{to[lang]}</option>)}
                 </select>
               </div>
@@ -113,13 +139,14 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
           </div>
         </div>
       </div>
+
       <div className="lg:col-span-5 flex flex-col gap-6 md:gap-8 h-full">
         <div className="glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl flex-1 flex flex-col border-2 border-white/80">
           <h3 className="text-lg md:text-xl font-black text-heading mb-6">{t.preview}</h3>
-          <div className="bg-white/95 p-5 md:p-8 rounded-[1.5rem] text-[13px] md:text-sm text-gray-900 shadow-inner flex-1 font-bold overflow-y-auto max-h-[350px] md:max-h-[550px] whitespace-pre-wrap">{preview}</div>
+          <div className="bg-white/95 p-5 md:p-8 rounded-[1.5rem] text-[13px] md:text-sm text-gray-900 shadow-inner flex-1 font-bold overflow-y-auto max-h-[350px] md:max-h-[550px] whitespace-pre-wrap leading-relaxed">{preview}</div>
           <div className="mt-6 md:mt-10 space-y-4">
-            <button onClick={handleSend} className="w-full bg-[#1f4e78] text-white font-black py-4 md:py-6 px-6 md:px-10 rounded-[1.8rem] shadow-xl text-lg md:text-xl uppercase tracking-widest">{t.sendWhatsapp}</button>
-            <button onClick={() => { navigator.clipboard.writeText(preview); alert(t.copySuccess); }} className="w-full py-4 text-[#1f4e78] font-black text-[10px] uppercase bg-white/60 rounded-[1.5rem] border-2 border-white">{t.copySuccess}</button>
+             <button onClick={handleSend} className="w-full bg-[#1f4e78] text-white font-black py-4 md:py-6 px-6 rounded-[1.8rem] shadow-xl text-lg md:text-xl uppercase tracking-widest">{t.sendWhatsapp}</button>
+             <button onClick={() => { navigator.clipboard.writeText(preview); alert(t.copySuccess); }} className="w-full py-4 text-[#1f4e78] font-black text-[10px] uppercase bg-white/60 rounded-[1.5rem] border-2 border-white">{t.copySuccess}</button>
           </div>
         </div>
       </div>
