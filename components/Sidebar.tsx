@@ -14,7 +14,7 @@ interface SidebarProps {
   access: { canCompose: boolean, canViewHistory: boolean, canViewTemplates: boolean };
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
+export const Sidebar: React.FC<SidebarProps> = ({
   activeTab, setActiveTab, user, onLogout, theme, setTheme, lang, setLang, t, access
 }) => {
   const navItems = [
@@ -24,45 +24,47 @@ const Sidebar: React.FC<SidebarProps> = ({
   ].filter(i => i.show);
 
   return (
-    <aside className="w-full md:w-80 glass m-2 md:m-4 rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col h-auto md:h-[calc(100vh-2rem)] shadow-2xl transition-all duration-300 z-30 border-2 border-white/30" style={{ backgroundColor: 'var(--bg-sidebar)' }}>
-      <div className="p-6 md:p-10 text-center border-b border-white/10 bg-white/5">
-        <div className="w-24 h-24 bg-white rounded-[2rem] mx-auto mb-6 flex items-center justify-center text-[#1f4e78] font-black text-4xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+    <aside className="w-full md:w-80 glass-card m-0 md:m-0 rounded-none overflow-hidden flex flex-col h-auto md:h-screen shadow-2xl transition-all duration-300 z-30 border-r border-white/5" style={{ background: 'var(--bg-sidebar)' }}>
+      <div className="p-8 md:p-12 text-center border-b border-white/5 bg-white/[0.02]">
+        <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-[2.2rem] mx-auto mb-8 flex items-center justify-center text-white font-black text-5xl shadow-2xl rotate-3 hover:rotate-0 transition-all duration-500">
           K
         </div>
-        <h2 className="font-black text-2xl text-white tracking-tight">مجموعة الكعكي</h2>
-        <div className="mt-3 inline-block px-4 py-1.5 bg-white/10 rounded-full text-[11px] text-white/90 uppercase font-black tracking-widest border border-white/20">
+        <h2 className="font-black text-2xl text-white tracking-widest uppercase">الكعكي</h2>
+        <div className="mt-4 inline-block px-5 py-2 bg-white/5 rounded-2xl text-[10px] text-white/50 uppercase font-black tracking-[0.2em] border border-white/5">
           {user.displayName} / {t[user.role]}
         </div>
       </div>
 
-      <nav className="p-4 md:p-8 space-y-2 md:space-y-4 flex-1 overflow-y-auto">
+      <nav className="p-6 md:p-10 space-y-3 flex-1 overflow-y-auto">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => setActiveTab(item.id)}
-            className={`w-full flex items-center gap-3 md:gap-5 px-4 md:px-6 py-3 md:py-5 rounded-[1.2rem] md:rounded-[1.8rem] transition-all duration-300 group ${activeTab === item.id
-              ? 'bg-white text-[#1f4e78] font-black shadow-[0_10px_20px_rgba(0,0,0,0.1)] scale-102'
-              : 'hover:bg-white/10 text-white/70 hover:text-white'
+            className={`w-full flex items-center gap-5 px-6 py-5 rounded-2xl transition-all duration-500 group ${activeTab === item.id
+              ? 'bg-white text-blue-900 font-black shadow-[0_15px_30px_rgba(255,255,255,0.1)] scale-[1.03]'
+              : 'hover:bg-white/5 text-white/40 hover:text-white'
               }`}
           >
-            <svg className="w-5 h-5 md:w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d={item.icon} />
-            </svg>
-            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-wider">{item.label}</span>
+            <div className={`p-2 rounded-xl transition-all ${activeTab === item.id ? 'bg-blue-50' : 'bg-white/5'}`}>
+              <svg className="w-5 h-5 md:w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={item.icon} />
+              </svg>
+            </div>
+            <span className="text-[11px] md:text-[12px] font-black uppercase tracking-[0.2em]">{item.label}</span>
           </button>
         ))}
       </nav>
 
-      <div className="p-4 md:p-8 space-y-4 md:space-y-6">
-        <div className="bg-white/5 p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border border-white/10 space-y-4 md:space-y-5 shadow-inner">
-          <div className="flex flex-col gap-2 md:gap-3">
-            <span className="text-[9px] md:text-[10px] text-white/50 font-black uppercase tracking-[0.2em]">{t.theme}</span>
-            <div className="flex bg-black/30 p-1 md:p-1.5 rounded-xl md:rounded-2xl border border-white/5">
+      <div className="p-6 md:p-10 space-y-6">
+        <div className="bg-black/20 p-6 rounded-[2rem] border border-white/5 space-y-6 shadow-inner">
+          <div className="flex flex-col gap-4">
+            <span className="text-[9px] text-white/30 font-black uppercase tracking-[0.3em]">{t.theme}</span>
+            <div className="flex bg-black/40 p-1.5 rounded-2xl border border-white/5">
               {(['light', 'dark', 'sepia'] as ThemeMode[]).map(m => (
                 <button
                   key={m}
                   onClick={() => setTheme(m)}
-                  className={`flex-1 py-1.5 md:py-2 rounded-lg md:rounded-xl text-[9px] md:text-[10px] font-black tracking-tighter transition-all duration-300 ${theme === m ? 'bg-white text-[#1f4e78] shadow-md' : 'text-white/40 hover:text-white/70'}`}
+                  className={`flex-1 py-3 rounded-xl text-[9px] font-black tracking-tighter transition-all duration-300 ${theme === m ? 'bg-white text-blue-900 shadow-xl' : 'text-white/20 hover:text-white/50'}`}
                 >
                   {t[m]}
                 </button>
@@ -70,30 +72,30 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 md:gap-3">
-            <span className="text-[9px] md:text-[10px] text-white/50 font-black uppercase tracking-[0.2em]">{t.lang}</span>
+          <div className="flex flex-col gap-4">
+            <span className="text-[9px] text-white/30 font-black uppercase tracking-[0.3em]">{t.lang}</span>
             <button
               onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-              className="bg-white/10 hover:bg-white/20 px-3 md:px-4 py-2 md:py-3 rounded-xl md:rounded-2xl text-[10px] md:text-[11px] text-white font-black tracking-widest border border-white/10 transition-all uppercase"
+              className="bg-white/5 hover:bg-white/10 px-6 py-4 rounded-2xl text-[10px] text-white/80 font-black tracking-widest border border-white/5 transition-all uppercase"
             >
-              {lang === 'ar' ? 'Switch to English' : 'التبديل للعربية'}
+              {lang === 'ar' ? 'English' : 'العربية'}
             </button>
           </div>
         </div>
 
         <button
           onClick={onLogout}
-          className="w-full flex items-center justify-center gap-2 md:gap-3 py-3 md:py-4 rounded-[1.2rem] md:rounded-[1.8rem] bg-red-600/10 text-red-100 hover:bg-red-600 hover:text-white transition-all text-[10px] md:text-xs font-black uppercase tracking-widest border border-red-600/20 shadow-lg"
+          className="w-full flex items-center justify-center gap-4 py-5 rounded-2xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all text-[11px] font-black uppercase tracking-[0.3em] border border-red-500/20 shadow-xl"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
           {t.logout}
         </button>
 
-        <div className="text-center pt-1 md:pt-2">
-          <p className="text-[9px] md:text-[10px] text-white/30 uppercase font-black tracking-[0.2em] leading-loose">
-            {t.madeBy} <a href="https://www.linkedin.com/in/falsanea/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline transition-all">{t.author}</a>
+        <div className="text-center pt-2">
+          <p className="text-[8px] text-white/10 uppercase font-black tracking-[0.5em] leading-loose hover:text-white/30 transition-colors">
+            {t.madeBy} <a href="https://www.linkedin.com/in/falsanea/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">{t.author}</a>
           </p>
         </div>
       </div>
@@ -101,4 +103,4 @@ const Sidebar: React.FC<SidebarProps> = ({
   );
 };
 
-export default Sidebar;
+

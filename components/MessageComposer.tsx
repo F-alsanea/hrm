@@ -9,7 +9,7 @@ interface MessageComposerProps {
   t: any;
 }
 
-const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t }) => {
+export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t }) => {
   const timeOptions = useMemo(() => {
     const times: { ar: string; en: string }[] = [];
     for (let hour = 9; hour <= 23; hour++) {
@@ -81,88 +81,123 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-start pb-20 lg:pb-0">
-      <div className="lg:col-span-7 glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-visible">
-        <h3 className="text-xl md:text-2xl font-black text-heading mb-6 md:mb-10 flex items-center gap-4">
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-[#1f4e78] rounded-[1rem] flex items-center justify-center text-white shadow-lg">
-            <svg className="w-5 h-5 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" /></svg>
-          </div>
-          <span className="tracking-tight">{t.details}</span>
-        </h3>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start pb-24 lg:pb-0">
+      <div className="lg:col-span-12 glass-card p-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden rounded-[2.5rem]">
+          {/* Main Form Section */}
+          <div className="lg:col-span-7 p-8 md:p-12 lg:p-16 bg-white/5">
+            <h3 className="text-2xl md:text-3xl font-black text-heading mb-12 flex items-center gap-6">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-blue-500/20 rotate-3">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" /></svg>
+              </div>
+              <span className="tracking-tight uppercase">{t.details}</span>
+            </h3>
 
-        <div className="space-y-6 md:space-y-8">
-          <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full px-4 md:px-6 py-4 md:py-5 rounded-[1.2rem] md:rounded-[1.5rem] font-black text-heading">
-            {Object.values(MessageType).map(type => <option key={type} value={type}>{type}</option>)}
-          </select>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <input type="text" placeholder={t.candidateName} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]" />
-            <input type="text" placeholder={t.phone} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]" />
-          </div>
-
-          {formData.type === MessageType.INFO_COLLECTION && (
-            <div className="bg-[#1f4e78]/10 dark:bg-white/10 p-6 md:p-8 rounded-[2rem] border-2 border-[#1f4e78]/20 space-y-6 animate-fadeIn">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 bg-[#1f4e78] rounded-lg flex items-center justify-center text-white">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <h4 className="font-black text-[#1f4e78] dark:text-white uppercase text-sm tracking-tight">{lang === 'ar' ? 'إعدادات جمع المعلومات' : 'Info Collection Settings'}</h4>
+            <div className="space-y-10">
+              <div className="space-y-4">
+                <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{lang === 'ar' ? 'نوع الرسالة' : 'MESSAGE TYPE'}</label>
+                <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full px-8 py-6 rounded-[1.8rem] font-black text-heading text-lg cursor-pointer bg-white transition-all shadow-xl border-none">
+                  {Object.values(MessageType).map(type => <option key={type} value={type}>{type}</option>)}
+                </select>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="group">
-                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-[0.15em]">{t.position}</label>
-                  <input
-                    type="text"
-                    value={formData.position}
-                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                    className="w-full px-5 py-4 rounded-[1.2rem] outline-none shadow-sm font-bold border-2 border-transparent focus:border-[#1f4e78]/30 transition-all bg-white dark:bg-slate-800"
-                    placeholder={lang === 'ar' ? "مثلاً: مدير تسويق" : "e.g. Marketing Manager"}
-                  />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{t.candidateName}</label>
+                  <input type="text" placeholder="e.g. Faisal Alsanea" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full px-8 py-6 rounded-[1.8rem] shadow-lg" />
                 </div>
-                <div className="group">
-                  <label className="block text-[10px] font-black text-muted uppercase mb-2 tracking-[0.15em]">{t.formLink}</label>
-                  <input
-                    type="text"
-                    value={formData.formLink}
-                    onChange={(e) => setFormData({ ...formData, formLink: e.target.value })}
-                    className="w-full px-5 py-4 rounded-[1.2rem] outline-none shadow-sm font-mono text-[11px] font-bold border-2 border-transparent focus:border-[#1f4e78]/30 transition-all bg-white dark:bg-slate-800"
-                  />
+                <div className="space-y-4">
+                  <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{t.phone}</label>
+                  <input type="text" placeholder="05XXXXXXXX" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full px-8 py-6 rounded-[1.8rem] shadow-lg" />
                 </div>
+              </div>
+
+              {formData.type === MessageType.INFO_COLLECTION && (
+                <div className="bg-blue-600/5 p-8 md:p-10 rounded-[2.2rem] border-2 border-blue-500/10 space-y-10 animate-fadeIn shadow-inner">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="font-black text-blue-600 uppercase text-[11px] tracking-[0.2em]">{lang === 'ar' ? 'إعدادات جمع المعلومات' : 'Info Collection Settings'}</h4>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-4">
+                      <label className="block text-[9px] font-black text-muted/60 uppercase tracking-[0.15em] ml-1">{t.position}</label>
+                      <input
+                        type="text"
+                        value={formData.position}
+                        onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                        className="w-full bg-white shadow-md"
+                        placeholder={lang === 'ar' ? "مثلاً: مدير تسويق" : "e.g. Marketing Manager"}
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <label className="block text-[9px] font-black text-muted/60 uppercase tracking-[0.15em] ml-1">{t.formLink}</label>
+                      <input
+                        type="text"
+                        value={formData.formLink}
+                        onChange={(e) => setFormData({ ...formData, formLink: e.target.value })}
+                        className="w-full bg-white shadow-md font-mono text-[11px]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="bg-black/5 p-8 md:p-12 rounded-[2.5rem] space-y-10 shadow-inner">
+                {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
+                  <div className="space-y-4">
+                    <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{lang === 'ar' ? 'اسم الموقع' : 'LOCATION NAME'}</label>
+                    <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-8 py-6 rounded-[1.8rem] bg-white border-none shadow-lg font-black text-heading">
+                      {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
+                    </select>
+                  </div>
+                )}
+                {formData.type === MessageType.INTERVIEW && (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fadeIn">
+                    <div className="space-y-4">
+                      <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{lang === 'ar' ? 'التاريخ' : 'DATE'}</label>
+                      <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem] shadow-md bg-white border-none" />
+                    </div>
+                    <div className="space-y-4">
+                      <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{lang === 'ar' ? 'اليوم' : 'DAY'}</label>
+                      <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem] shadow-md bg-white border-none font-black text-heading">
+                        {DAYS.map(day => <option key={day.en} value={day[lang]}>{day[lang]}</option>)}
+                      </select>
+                    </div>
+                    <div className="space-y-4">
+                      <label className="block text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2">{lang === 'ar' ? 'الوقت' : 'TIME'}</label>
+                      <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem] shadow-md bg-white border-none font-black text-heading">
+                        {timeOptions.map(to => <option key={to.en} value={to[lang]}>{to[lang]}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          )}
-
-          <div className="bg-white/40 p-6 md:p-10 rounded-[2.5rem] border border-white/60 space-y-8 shadow-inner">
-            {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
-              <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]">
-                {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
-              </select>
-            )}
-            {formData.type === MessageType.INTERVIEW && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fadeIn">
-                <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]" />
-                <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]">
-                  {DAYS.map(day => <option key={day.en} value={day[lang]}>{day[lang]}</option>)}
-                </select>
-                <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full px-6 py-5 rounded-[1.5rem]">
-                  {timeOptions.map(to => <option key={to.en} value={to[lang]}>{to[lang]}</option>)}
-                </select>
-              </div>
-            )}
           </div>
-        </div>
-      </div>
 
-      <div className="lg:col-span-5 flex flex-col gap-6 md:gap-8 h-full">
-        <div className="glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl flex-1 flex flex-col border-2 border-white/80">
-          <h3 className="text-lg md:text-xl font-black text-heading mb-6">{t.preview}</h3>
-          <div className="bg-white/95 p-5 md:p-8 rounded-[1.5rem] text-[13px] md:text-sm text-gray-900 shadow-inner flex-1 font-bold overflow-y-auto max-h-[350px] md:max-h-[550px] whitespace-pre-wrap leading-relaxed">{preview}</div>
-          <div className="mt-6 md:mt-10 space-y-4">
-            <button onClick={handleSend} className="w-full bg-[#1f4e78] text-white font-black py-4 md:py-6 px-6 rounded-[1.8rem] shadow-xl text-lg md:text-xl uppercase tracking-widest">{t.sendWhatsapp}</button>
-            <button onClick={() => { navigator.clipboard.writeText(preview); alert(t.copySuccess); }} className="w-full py-4 text-[#1f4e78] font-black text-[10px] uppercase bg-white/60 rounded-[1.5rem] border-2 border-white">{t.copySuccess}</button>
+          {/* Preview Section */}
+          <div className="lg:col-span-5 p-8 md:p-12 lg:p-16 flex flex-col bg-white/[0.03] border-l border-white/5">
+            <h3 className="text-xl md:text-2xl font-black text-heading mb-10 uppercase tracking-widest">{t.preview}</h3>
+            <div className={`bg-white p-8 md:p-12 rounded-[2rem] text-[13px] md:text-sm text-gray-900 shadow-[0_10px_40px_rgba(0,0,0,0.1)] flex-1 font-bold overflow-y-auto max-h-[500px] lg:max-h-none min-h-[400px] whitespace-pre-wrap leading-relaxed relative ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+              <div className="absolute top-0 left-0 w-full h-2 bg-blue-600 rounded-t-[2rem]"></div>
+              {preview}
+            </div>
+
+            <div className="mt-12 space-y-5">
+              <button
+                onClick={handleSend}
+                className="w-full bg-blue-600 text-white font-black py-6 px-10 rounded-[2rem] shadow-[0_20px_40px_rgba(37,99,235,0.25)] text-lg uppercase tracking-widest hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-4 group"
+              >
+                <span>{t.sendWhatsapp}</span>
+                <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12.012 2c-5.508 0-9.987 4.479-9.987 9.988 0 1.757.455 3.409 1.25 4.847l-1.275 4.659 4.774-1.253c1.398.761 2.996 1.196 4.695 1.196 5.508 0 9.987-4.479 9.987-9.988 0-5.508-4.479-9.988-9.987-9.988zm0 18.272c-1.54 0-3.047-.413-4.362-1.194l-.312-.187-2.821.74.752-2.734-.206-.328c-.859-1.365-1.312-2.951-1.312-4.581 0-4.729 3.847-8.576 8.576-8.576 4.729 0 8.576 3.847 8.576 8.576 0 4.729-3.847 8.576-8.576 8.576zm4.693-6.41c-.257-.129-1.523-.752-1.759-.838-.236-.086-.407-.129-.578.129-.171.258-.66.838-.809 1.011-.149.172-.299.193-.557.064-.257-.13-1.087-.401-2.071-1.278-.765-.683-1.282-1.526-1.432-1.784-.149-.258-.016-.397.113-.526.116-.116.257-.299.386-.448.129-.149.171-.257.257-.428.086-.171.043-.321-.021-.45-.064-.129-.578-1.396-.793-1.912-.209-.502-.423-.434-.578-.442-.149-.007-.321-.009-.493-.009-.171 0-.45.064-.686.321-.236.257-.901.881-.901 2.15 0 1.269.923 2.495 1.051 2.666.129.171 1.816 2.774 4.397 3.887.614.265 1.094.423 1.468.542.617.196 1.178.169 1.62.103.493-.073 1.523-.622 1.737-1.226.215-.605.215-1.125.15-1.226-.065-.101-.237-.161-.494-.29z" /></svg>
+              </button>
+              <button onClick={() => { navigator.clipboard.writeText(preview); alert(t.copySuccess); }} className="w-full py-5 text-muted font-black text-[10px] uppercase hover:text-heading transition-all tracking-[0.3em] bg-white/5 rounded-2xl border border-white/5">{t.copySuccess}</button>
+            </div>
           </div>
         </div>
       </div>
@@ -170,4 +205,4 @@ const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t
   );
 };
 
-export default MessageComposer;
+
