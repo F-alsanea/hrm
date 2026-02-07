@@ -146,7 +146,7 @@ const App: React.FC = () => {
 
 
         <div className="max-w-7xl mx-auto w-full flex-1 animate-slideUp">
-          {activeTab === 'composer' && canCompose && <MessageComposer onSend={saveToHistory} lang={lang} user={user} t={t} />}
+          {activeTab === 'composer' && canCompose && <MessageComposer onSend={saveToHistory} lang={lang} theme={theme} user={user} t={t} />}
           {activeTab === 'history' && canViewHistory && <HistoryTable history={history} onClear={clearHistory} lang={lang} t={t} />}
           {activeTab === 'templates' && canViewTemplates && <TemplateViewer lang={lang} t={t} />}
         </div>
@@ -232,46 +232,15 @@ const App: React.FC = () => {
           border: 1px solid rgba(0,0,0,0.1); 
           transition: all 0.2s ease; 
           border-radius: 1rem; 
-          padding: 0.8rem 1rem; 
+          padding: 0.8rem 1.2rem; 
           font-weight: 600;
           outline: none;
           font-size: 14px;
           width: 100%;
-          line-height: normal;
+          line-height: 1.5;
+          overflow-wrap: break-word;
         }
 
-        select {
-          appearance: none;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          background-repeat: no-repeat;
-          background-size: 1rem;
-          text-align: center;
-          cursor: pointer;
-          padding: 0.8rem 4.5rem !important;
-          line-height: normal;
-          font-size: 14px;
-          letter-spacing: -0.01em;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-opacity='0.4' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-          background-position: left 1.5rem center;
-        }
-
-        [dir="ltr"] select {
-          background-position: right 1.5rem center;
-        }
-
-        .theme-dark select, .theme-dusk select {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-opacity='0.4' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-        }
-
-        select option {
-          background-color: var(--bg-input);
-          color: var(--text-input);
-          text-align: center;
-          padding: 12px;
-          font-size: 13px;
-          white-space: nowrap;
-        }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
         }
