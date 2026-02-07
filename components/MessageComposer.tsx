@@ -96,7 +96,7 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
             <div className="space-y-8">
               <div className="space-y-3">
                 <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'نوع الرسالة' : 'MESSAGE TYPE'}</label>
-                <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full px-4 py-4 rounded-xl font-bold cursor-pointer transition-all shadow-lg border-none text-center">
+                <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full rounded-xl font-bold cursor-pointer transition-all shadow-lg border-none bg-white/5">
                   {Object.values(MessageType).map(type => <option key={type} value={type}>{type}</option>)}
                 </select>
               </div>
@@ -151,7 +151,7 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
                 {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
                   <div className="space-y-3">
                     <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اسم الموقع' : 'LOCATION NAME'}</label>
-                    <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-4 py-4 rounded-xl border-none shadow-md font-bold text-center">
+                    <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full rounded-xl border-none shadow-md font-bold bg-white/5">
                       {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
                     </select>
                   </div>
@@ -164,13 +164,13 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
                     </div>
                     <div className="space-y-3">
                       <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اليوم' : 'DAY'}</label>
-                      <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none font-bold text-sm text-center">
+                      <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full py-4 rounded-xl shadow-sm border-none font-bold text-sm bg-white/5">
                         {DAYS.map(day => <option key={day.en} value={day[lang]}>{day[lang]}</option>)}
                       </select>
                     </div>
                     <div className="space-y-3">
                       <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'الوقت' : 'TIME'}</label>
-                      <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none font-bold text-sm text-center">
+                      <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full py-4 rounded-xl shadow-sm border-none font-bold text-sm bg-white/5">
                         {timeOptions.map(to => <option key={to.en} value={to[lang]}>{to[lang]}</option>)}
                       </select>
                     </div>
