@@ -245,17 +245,19 @@ const App: React.FC = () => {
           -webkit-appearance: none;
           -moz-appearance: none;
           background-repeat: no-repeat;
-          background-size: 1.1rem;
+          background-size: 1rem;
           text-align: center;
           cursor: pointer;
-          padding: 0.8rem 3.5rem !important;
-          line-height: 1.5;
+          padding: 0.8rem 4.5rem !important;
+          line-height: normal;
+          font-size: 14px;
+          letter-spacing: -0.01em;
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-opacity='0.4' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-          background-position: left 1.2rem center;
+          background-position: left 1.5rem center;
         }
 
         [dir="ltr"] select {
-          background-position: right 1.2rem center;
+          background-position: right 1.5rem center;
         }
 
         .theme-dark select, .theme-dusk select {
@@ -267,6 +269,8 @@ const App: React.FC = () => {
           color: var(--text-input);
           text-align: center;
           padding: 12px;
+          font-size: 13px;
+          white-space: nowrap;
         }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
