@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { MessageType, MessageLog, FormData, User, Language } from '../types';
+import { MessageType, MessageLog, FormData, User, Language, ThemeMode } from '../types';
 import { TEMPLATES, LOCATIONS, DAYS, DEFAULT_FORM_LINK } from '../constants';
+import { CustomDropdown } from './CustomDropdown';
 
 interface MessageComposerProps {
   onSend: (log: MessageLog) => void;
   lang: Language;
+  theme: ThemeMode;
   user: User;
   t: any;
 }
 
-export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, user, t }) => {
+export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, theme, user, t }) => {
   const timeOptions = useMemo(() => {
     const times: { ar: string; en: string }[] = [];
     for (let hour = 9; hour <= 23; hour++) {
@@ -94,12 +96,14 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
             </h3>
 
             <div className="space-y-8">
-              <div className="space-y-3">
-                <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'نوع الرسالة' : 'MESSAGE TYPE'}</label>
-                <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full rounded-xl font-bold cursor-pointer transition-all shadow-lg border-none bg-white/5">
-                  {Object.values(MessageType).map(type => <option key={type} value={type}>{type}</option>)}
-                </select>
-              </div>
+              <CustomDropdown
+                label={lang === 'ar' ? 'نوع الرسالة' : 'MESSAGE TYPE'}
+                options={Object.values(MessageType).map(type => ({ id: type, label: type }))}
+                value={formData.type}
+                onChange={(val) => setFormData({ ...formData, type: val as MessageType })}
+                lang={lang}
+                theme={theme}
+              />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
@@ -149,12 +153,14 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
 
               <div className="bg-black/5 p-6 md:p-10 rounded-[2rem] space-y-8">
                 {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
-                  <div className="space-y-3">
-                    <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اسم الموقع' : 'LOCATION NAME'}</label>
-                    <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full rounded-xl border-none shadow-md font-bold bg-white/5">
-                      {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
-                    </select>
-                  </div>
+                  <CustomDropdown
+                    label={lang === 'ar' ? 'اسم الموقع' : 'LOCATION NAME'}
+                    options={LOCATIONS.map(loc => ({ id: loc.id, label: loc.name[lang] }))}
+                    value={formData.locationId}
+                    onChange={(val) => setFormData({ ...formData, locationId: val })}
+                    lang={lang}
+                    theme={theme}
+                  />
                 )}
                 {formData.type === MessageType.INTERVIEW && (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5 animate-fadeIn">
@@ -162,18 +168,22 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
                       <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'التاريخ' : 'DATE'}</label>
                       <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none text-sm text-center" />
                     </div>
-                    <div className="space-y-3">
-                      <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اليوم' : 'DAY'}</label>
-                      <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full py-4 rounded-xl shadow-sm border-none font-bold text-sm bg-white/5">
-                        {DAYS.map(day => <option key={day.en} value={day[lang]}>{day[lang]}</option>)}
-                      </select>
-                    </div>
-                    <div className="space-y-3">
-                      <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'الوقت' : 'TIME'}</label>
-                      <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full py-4 rounded-xl shadow-sm border-none font-bold text-sm bg-white/5">
-                        {timeOptions.map(to => <option key={to.en} value={to[lang]}>{to[lang]}</option>)}
-                      </select>
-                    </div>
+                    <CustomDropdown
+                      label={lang === 'ar' ? 'اليوم' : 'DAY'}
+                      options={DAYS.map(day => ({ id: day[lang], label: day[lang] }))}
+                      value={formData.day}
+                      onChange={(val) => setFormData({ ...formData, day: val })}
+                      lang={lang}
+                      theme={theme}
+                    />
+                    <CustomDropdown
+                      label={lang === 'ar' ? 'الوقت' : 'TIME'}
+                      options={timeOptions.map(to => ({ id: to[lang], label: to[lang] }))}
+                      value={formData.time}
+                      onChange={(val) => setFormData({ ...formData, time: val })}
+                      lang={lang}
+                      theme={theme}
+                    />
                   </div>
                 )}
               </div>
@@ -202,7 +212,6 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
         </div>
       </div>
     </div>
-
   );
 };
 
