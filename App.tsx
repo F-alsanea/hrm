@@ -9,23 +9,37 @@ import { translations } from './translations';
 
 const Signature: React.FC<{ lang: 'ar' | 'en'; theme: ThemeMode }> = ({ lang, theme }) => {
   return (
-    <div className="fixed bottom-6 w-full flex justify-center z-[100] pointer-events-none no-print">
+    <div className="fixed bottom-8 w-full flex justify-center z-[100] pointer-events-none no-print px-4">
       <a
         href="https://www.linkedin.com/in/falsanea/"
         target="_blank"
         rel="noopener noreferrer"
         className={`
-          pointer-events-auto px-6 py-3 rounded-full border backdrop-blur-xl
-          transition-all duration-500 hover:scale-110 hover:shadow-2xl flex items-center gap-3 text-sm font-black
-          ${theme === 'light' ? 'bg-white/95 border-slate-300 text-[#0F172A] shadow-xl shadow-slate-200/50' :
-            'bg-[#020617]/90 border-slate-700 text-[#F1F5F9] shadow-2xl'}
+          pointer-events-auto px-5 py-2.5 rounded-2xl border backdrop-blur-2xl
+          transition-all duration-500 hover:scale-105 hover:-translate-y-1 group
+          flex items-center gap-4 text-sm
+          ${theme === 'light'
+            ? 'bg-white/70 border-white/50 text-slate-900 shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)]'
+            : 'bg-slate-900/60 border-white/10 text-white shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]'}
         `}
       >
-        <span className="opacity-60">{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
-        <div className={`w-px h-4 ${theme === 'light' ? 'bg-[#0F172A]/20' : 'bg-white/20'}`} />
-        <span className={theme === 'light' ? 'text-indigo-700' : 'text-indigo-300'}>
-          {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
-        </span>
+        <div className="flex flex-col items-start leading-tight">
+          <span className="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-0.5">
+            {lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}
+          </span>
+          <span className="font-black text-base tracking-tight">
+            {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
+          </span>
+        </div>
+
+        <div className={`
+          w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-500
+          ${theme === 'light' ? 'bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white' : 'bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white'}
+        `}>
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+          </svg>
+        </div>
       </a>
     </div>
   );
