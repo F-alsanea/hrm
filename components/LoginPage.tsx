@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import { User, Language } from '../types';
+import { User, Language, ThemeMode } from '../types';
 import { translations } from '../translations';
 
 interface LoginPageProps {
   onLogin: (user: User) => void;
   lang: Language;
   setLang: (l: Language) => void;
+  theme: ThemeMode;
+  setTheme: (t: ThemeMode) => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang }) => {
+const ThemeSwitcher: React.FC<{ theme: ThemeMode; setTheme: (t: ThemeMode) => void }> = ({ theme, setTheme }) => {
+  return (
+    <div className="flex bg-black/5 backdrop-blur-xl p-1.5 rounded-2xl border border-current/10 no-print shadow-sm">
+      <button onClick={() => setTheme('light')} className={`p-2 rounded-xl transition-all ${theme === 'light' ? 'bg-white text-indigo-600 shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>☀️</button>
+      <button onClick={() => setTheme('dusk')} className={`p-2 rounded-xl transition-all ${theme === 'dusk' ? 'bg-indigo-600 text-white shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>⛅</button>
+      <button onClick={() => setTheme('dark')} className={`p-2 rounded-xl transition-all ${theme === 'dark' ? 'bg-slate-800 text-indigo-400 shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>🌙</button>
+    </div>
+  );
+};
+
+export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang, theme, setTheme }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -30,51 +42,69 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang }) 
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-transparent relative">
-      <div className="absolute top-8 right-8 z-50">
-        <button onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')} className="bg-white/5 backdrop-blur-3xl px-6 py-3 rounded-2xl text-white border border-white/10 font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
-          {lang === 'ar' ? 'English' : 'العربية'}
-        </button>
-      </div>
+  const cardStyle = theme === 'light'
+    ? 'bg-white border-[#0F172A]/15 shadow-xl transition-all duration-300 hover:shadow-2xl text-slate-900'
+    : theme === 'dark'
+      ? 'bg-[#020617]/80 border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-indigo-500/30 text-white'
+      : 'bg-indigo-950/40 border-indigo-400/40 backdrop-blur-xl transition-all duration-300 hover:bg-white/10 text-[#E0E7FF]';
 
-      <div className="w-full max-w-sm p-4 animate-slideUp">
-        <div className="text-center mb-12">
-          <div className="w-20 h-20 bg-white text-blue-950 rounded-3xl mx-auto mb-8 flex items-center justify-center font-black text-4xl shadow-2xl">K</div>
-          <h1 className="text-3xl font-black text-white tracking-tight leading-tight mb-3">{t.title}</h1>
-          <p className="text-white/40 font-bold uppercase text-[10px] tracking-[0.4em]">{t.subtitle}</p>
+  const inputStyle = `w-full p-5 pr-12 rounded-2xl border font-black outline-none transition-all ${theme === 'light' ? 'bg-slate-50 border-slate-300 focus:border-indigo-500' : 'bg-black/20 border-white/10 focus:border-indigo-500'
+    }`;
+
+  return (
+    <div className="w-full max-w-md p-6 animate-fadeIn">
+      <form onSubmit={handleLogin} className={`p-12 rounded-[3.5rem] border z-10 text-right ${cardStyle}`}>
+        <div className="flex justify-between items-center mb-10">
+          <ThemeSwitcher theme={theme} setTheme={setTheme} />
+          <div className="p-4 bg-indigo-600 rounded-2xl text-white shadow-xl text-3xl font-black">🏢</div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="space-y-2">
-            <label className="block text-[10px] font-black text-white/30 uppercase tracking-[0.2em] px-2">{t.username}</label>
+        <h2 className="text-3xl font-black mb-1">{t.title}</h2>
+        <p className="text-[10px] font-black opacity-40 mb-10 uppercase tracking-[0.2em]">{t.subtitle}</p>
+
+        <div className="space-y-6">
+          <div className="relative">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30">👤</span>
             <input
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-6 py-4 rounded-2xl bg-white/5 text-white font-bold outline-none border border-white/10 focus:border-white/30 focus:bg-white/10 transition-all text-sm"
-              placeholder="admin"
+              onChange={e => setUsername(e.target.value)}
+              className={inputStyle}
+              placeholder={t.username}
               required
             />
           </div>
-          <div className="space-y-2">
-            <label className="block text-[10px] font-black text-white/30 uppercase tracking-[0.2em] px-2">{t.password}</label>
+
+          <div className="relative">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30">🔒</span>
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-6 py-4 rounded-2xl bg-white/5 text-white font-bold outline-none border border-white/10 focus:border-white/30 focus:bg-white/10 transition-all text-sm"
-              placeholder="••••••"
+              onChange={e => setPassword(e.target.value)}
+              className={inputStyle}
+              placeholder={t.password}
               required
             />
           </div>
-          {error && <p className="text-red-400 text-[10px] text-center font-bold uppercase tracking-wider animate-pulse">{error}</p>}
-          <button type="submit" className="w-full bg-white text-blue-950 py-5 rounded-2xl font-black text-base shadow-2xl hover:bg-opacity-90 active:scale-[0.98] transition-all duration-300 uppercase tracking-widest">{t.login}</button>
-        </form>
-      </div>
+
+          <button
+            type="button"
+            onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
+            className={`w-full py-3 rounded-xl border border-current/10 font-bold text-xs uppercase tracking-widest transition-all ${theme === 'light' ? 'hover:bg-slate-100' : 'hover:bg-white/5'}`}
+          >
+            {lang === 'ar' ? 'English Language' : 'اللغة العربية'}
+          </button>
+
+          {error && <div className="text-rose-500 text-xs font-black text-center animate-pulse">{error}</div>}
+
+          <button
+            type="submit"
+            className="w-full py-5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-black shadow-xl transform transition-transform active:scale-[0.98] text-lg uppercase tracking-wide"
+          >
+            {t.login}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
-
-
-
