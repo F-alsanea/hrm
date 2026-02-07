@@ -9,24 +9,22 @@ import { translations } from './translations';
 
 const Signature: React.FC<{ lang: 'ar' | 'en'; theme: ThemeMode }> = ({ lang, theme }) => {
   return (
-    <div className="fixed bottom-6 w-full flex justify-center z-[100] pointer-events-none no-print">
+    <div className="fixed bottom-8 w-full flex justify-center z-[100] pointer-events-none no-print px-4">
       <a
         href="https://www.linkedin.com/in/falsanea/"
         target="_blank"
         rel="noopener noreferrer"
         className={`
-          pointer-events-auto px-6 py-3 rounded-full border backdrop-blur-xl
-          transition-all duration-500 hover:scale-110 hover:shadow-2xl flex items-center gap-3 text-sm font-black
-          ${theme === 'light' ? 'bg-white/95 border-slate-300 text-[#0F172A] shadow-xl shadow-slate-200/50' :
-            theme === 'dark' ? 'bg-[#020617]/90 border-slate-700 text-[#F1F5F9] shadow-2xl' :
-              'bg-[#1E1B4B]/95 border-indigo-400/40 text-[#E0E7FF] shadow-[0_0_30px_rgba(79,70,229,0.4)]'}
+          pointer-events-auto px-6 py-3.5 rounded-full border backdrop-blur-2xl
+          transition-all duration-500 hover:scale-105 hover:-translate-y-1 flex items-center gap-4 text-sm font-bold
+          ${theme === 'light' ? 'bg-white/90 border-slate-200 text-slate-900 shadow-[0_10px_40px_rgba(0,0,0,0.08)]' :
+            theme === 'dark' ? 'bg-slate-950/80 border-white/10 text-white shadow-[0_10px_50px_rgba(0,0,0,0.4)]' :
+              'bg-indigo-950/90 border-indigo-400/30 text-indigo-50 shadow-[0_10px_50px_rgba(49,46,129,0.5)]'}
         `}
       >
-        <span className="opacity-60">{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
-        <div className={`w-px h-4 ${theme === 'light' ? 'bg-[#0F172A]/20' : 'bg-white/20'}`} />
-        <span className={theme === 'light' ? 'text-indigo-700' : 'text-indigo-300'}>
-          {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
-        </span>
+        <span className="opacity-40 uppercase tracking-widest text-[9px]">{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
+        <div className={`w-px h-4 ${theme === 'light' ? 'bg-slate-200' : 'bg-white/10'}`} />
+        <span className="font-black tracking-tight">{lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}</span>
       </a>
     </div>
   );
@@ -34,10 +32,28 @@ const Signature: React.FC<{ lang: 'ar' | 'en'; theme: ThemeMode }> = ({ lang, th
 
 const ThemeSwitcher: React.FC<{ theme: ThemeMode; setTheme: (t: ThemeMode) => void }> = ({ theme, setTheme }) => {
   return (
-    <div className="flex bg-black/10 backdrop-blur-xl p-1.5 rounded-2xl border border-current/10 no-print shadow-xl">
-      <button onClick={() => setTheme('light')} className={`p-2 rounded-xl transition-all ${theme === 'light' ? 'bg-white text-indigo-600 shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>☀️</button>
-      <button onClick={() => setTheme('dusk')} className={`p-2 rounded-xl transition-all ${theme === 'dusk' ? 'bg-indigo-600 text-white shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>⛅</button>
-      <button onClick={() => setTheme('dark')} className={`p-2 rounded-xl transition-all ${theme === 'dark' ? 'bg-slate-800 text-indigo-400 shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>🌙</button>
+    <div className="flex bg-black/10 backdrop-blur-xl p-1.5 rounded-2xl border border-white/10 no-print shadow-xl">
+      <button
+        onClick={() => setTheme('light')}
+        className={`p-2.5 rounded-xl transition-all duration-300 ${theme === 'light' ? 'bg-white text-indigo-600 shadow-lg scale-110' : 'text-white/40 hover:text-white hover:bg-white/10'}`}
+        title="Light Mode"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+      </button>
+      <button
+        onClick={() => setTheme('dusk')}
+        className={`p-2.5 rounded-xl transition-all duration-300 ${theme === 'dusk' ? 'bg-indigo-600 text-white shadow-lg scale-110' : 'text-white/40 hover:text-white hover:bg-white/10'}`}
+        title="Dusk Mode"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="M20 12h2" /><path d="m19.07 4.93-1.41 1.41" /><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" /><path d="M13 22H7a5 5 0 1 1 4.9-6H13a5 5 0 0 1 0 10Z" /></svg>
+      </button>
+      <button
+        onClick={() => setTheme('dark')}
+        className={`p-2.5 rounded-xl transition-all duration-300 ${theme === 'dark' ? 'bg-slate-800 text-indigo-400 shadow-lg scale-110' : 'text-white/40 hover:text-white hover:bg-white/10'}`}
+        title="Dark Mode"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+      </button>
     </div>
   );
 };
