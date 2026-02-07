@@ -31,36 +31,46 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang }) 
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-6 bg-transparent relative overflow-hidden">
-      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-50">
-        <button onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')} className="bg-white/5 backdrop-blur-2xl px-5 py-2.5 rounded-xl text-white border border-white/10 font-black text-[10px] uppercase tracking-wider hover:bg-white/10 transition-all shadow-xl">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-transparent relative">
+      <div className="absolute top-8 right-8 z-50">
+        <button onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')} className="bg-white/5 backdrop-blur-3xl px-6 py-3 rounded-2xl text-white border border-white/10 font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
           {lang === 'ar' ? 'English' : 'العربية'}
         </button>
       </div>
 
-      <div className="glass-card w-full max-w-md p-8 md:p-12 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] relative z-10 animate-slideUp">
-        <div className="text-center mb-10 md:mb-12">
-          <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2rem] mx-auto mb-6 flex items-center justify-center text-white font-black text-5xl shadow-[0_20px_40px_rgba(37,99,235,0.3)] rotate-6 hover:rotate-0 transition-all duration-500">K</div>
-          <h1 className="text-2xl md:text-4xl font-black text-white drop-shadow-2xl leading-tight">{t.title}</h1>
-          <p className="text-blue-200/40 font-black mt-3 uppercase text-[9px] md:text-[10px] tracking-[0.2em]">{t.subtitle}</p>
+      <div className="w-full max-w-sm p-4 animate-slideUp">
+        <div className="text-center mb-12">
+          <div className="w-20 h-20 bg-white text-blue-950 rounded-3xl mx-auto mb-8 flex items-center justify-center font-black text-4xl shadow-2xl">K</div>
+          <h1 className="text-3xl font-black text-white tracking-tight leading-tight mb-3">{t.title}</h1>
+          <p className="text-white/40 font-bold uppercase text-[10px] tracking-[0.4em]">{t.subtitle}</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6 md:space-y-8">
-          <div className="group">
-            <label className="block text-[9px] font-black text-white/40 uppercase mb-3 tracking-[0.1em]">{t.username}</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-6 py-4 rounded-2xl bg-white/5 text-white font-bold outline-none border-2 border-white/10 focus:border-blue-500/50 focus:bg-white/10 transition-all shadow-inner text-sm" placeholder="admin" required />
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-2">
+            <label className="block text-[10px] font-black text-white/30 uppercase tracking-[0.2em] px-2">{t.username}</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-6 py-4 rounded-2xl bg-white/5 text-white font-bold outline-none border border-white/10 focus:border-white/30 focus:bg-white/10 transition-all text-sm"
+              placeholder="admin"
+              required
+            />
           </div>
-          <div className="group">
-            <label className="block text-[9px] font-black text-white/40 uppercase mb-3 tracking-[0.1em]">{t.password}</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-6 py-4 rounded-2xl bg-white/5 text-white font-bold outline-none border-2 border-white/10 focus:border-blue-500/50 focus:bg-white/10 transition-all shadow-inner text-sm" placeholder="••••••" required />
+          <div className="space-y-2">
+            <label className="block text-[10px] font-black text-white/30 uppercase tracking-[0.2em] px-2">{t.password}</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-6 py-4 rounded-2xl bg-white/5 text-white font-bold outline-none border border-white/10 focus:border-white/30 focus:bg-white/10 transition-all text-sm"
+              placeholder="••••••"
+              required
+            />
           </div>
-          {error && <p className="text-red-400 text-[9px] text-center font-black uppercase tracking-[0.1em] animate-pulse">{error}</p>}
-          <button type="submit" className="w-full bg-white text-blue-900 py-4.5 rounded-2xl font-black text-lg shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 uppercase tracking-wide">{t.login}</button>
+          {error && <p className="text-red-400 text-[10px] text-center font-bold uppercase tracking-wider animate-pulse">{error}</p>}
+          <button type="submit" className="w-full bg-white text-blue-950 py-5 rounded-2xl font-black text-base shadow-2xl hover:bg-opacity-90 active:scale-[0.98] transition-all duration-300 uppercase tracking-widest">{t.login}</button>
         </form>
-
-        <div className="mt-10 md:mt-12 text-center text-[8px] font-black text-white/20 uppercase tracking-[0.3em] opacity-50 hover:opacity-100 transition-opacity">
-          {t.madeBy} <a href="https://www.linkedin.com/in/falsanea/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline transition-all">{t.author}</a>
-        </div>
       </div>
     </div>
   );
