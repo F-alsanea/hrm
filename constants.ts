@@ -4,7 +4,7 @@ export const LOCATIONS = [
   { id: 'office', name: { ar: 'الإدارة الرئيسية', en: 'Head Office' }, link: 'https://maps.app.goo.gl/EoiSqTWpTsgZz38w8' },
   { id: 'zikaki', name: { ar: 'مطعم زيكاكي', en: 'Zikaki Restaurant' }, link: 'https://maps.app.goo.gl/t4gCLttTddFEVJz4A' },
   { id: 'shorafa', name: { ar: 'قاعة الشرافة', en: 'Al Shorafa Hall' }, link: 'https://maps.app.goo.gl/TxzTcDpuHGqfsTiK6' },
-  { id: 'stagioni', name: { ar: 'مطعم سيزيوني', en: 'Sezione Restaurant' }, link: 'https://maps.app.goo.gl/t2yjnGVrbGWiUeE26' },
+  { id: 'sezione', name: { ar: 'مطعم سيزيوني', en: 'Sezione Restaurant' }, link: 'https://maps.app.goo.gl/t2yjnGVrbGWiUeE26' },
   { id: 'albay_m', name: { ar: 'مخبز الباي المحمدية', en: 'Al Bay Bakery - Muhammadiyah' }, link: 'https://maps.app.goo.gl/H1S2hSiQaVwqoJ8P8' },
   { id: 'albay_z', name: { ar: 'مخبز الباي الزهراء', en: 'Al Bay Bakery - Al Zahra' }, link: 'https://maps.app.goo.gl/w4yKtuHm8BftGGww7' },
   { id: 'gabbiano', name: { ar: 'مطعم الجبيانو', en: 'Il Gabbiano Restaurant' }, link: 'https://maps.app.goo.gl/DWC3G4MH4XDVR1Ww9' },
