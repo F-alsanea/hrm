@@ -1,7 +1,7 @@
 export const translations = {
   ar: {
     title: "نظام مراسلات التوظيف الذكي",
-    subtitle: "مجموعة الكعكي - التميز في استقطاب الكفاءات",
+    subtitle: "",
     login: "تسجيل الدخول",
     username: "اسم المستخدم",
     password: "كلمة المرور",
@@ -43,7 +43,7 @@ export const translations = {
   },
   en: {
     title: "Smart Recruitment Messaging",
-    subtitle: "Al-Kaki Group - Excellence in Talent Acquisition",
+    subtitle: "",
     login: "Login",
     username: "Username",
     password: "Password",

@@ -130,16 +130,16 @@ const App: React.FC = () => {
   return (
     <div className={`flex flex-col md:flex-row h-screen font-sans theme-${theme} bg-page transition-all duration-700 ease-in-out overflow-hidden`}>
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} user={user} onLogout={handleLogout} theme={theme} setTheme={setTheme} lang={lang} setLang={setLang} t={t} access={{ canCompose, canViewHistory, canViewTemplates }} />
-      <main className="flex-1 p-4 md:p-8 lg:p-10 overflow-y-auto flex flex-col relative">
-        <header className="mb-6 md:mb-8 flex flex-row justify-between items-center gap-6 animate-fadeIn">
-          <div className="flex items-center gap-6">
+      <main className="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col relative">
+        <header className="mb-4 md:mb-6 flex flex-row justify-between items-center gap-6 animate-fadeIn">
+          <div className="flex items-center gap-5">
             <ThemeSwitcher theme={theme} setTheme={setTheme} />
             <div>
-              <h1 className="text-2xl md:text-4xl font-black text-heading drop-shadow-sm tracking-tight leading-tight">{t.title}</h1>
-              <p className="text-muted text-[10px] md:text-xs font-bold mt-1 uppercase tracking-[0.2em] opacity-80">{t.subtitle}</p>
+              <h1 className="text-xl md:text-2xl font-black text-heading drop-shadow-sm tracking-tight leading-tight">{t.title}</h1>
+              {t.subtitle && <p className="text-muted text-[9px] md:text-[10px] font-bold mt-0.5 uppercase tracking-[0.2em] opacity-80">{t.subtitle}</p>}
             </div>
           </div>
-          <div className="bg-white/5 backdrop-blur-xl px-4 py-2 rounded-xl text-heading text-[10px] font-black border border-white/10 shadow-lg uppercase tracking-wider transition-transform hover:scale-105 duration-300 hidden sm:block">
+          <div className="bg-white/5 backdrop-blur-xl px-3 py-1.5 rounded-lg text-heading text-[9px] font-black border border-white/10 shadow-lg uppercase tracking-wider transition-transform hover:scale-105 duration-300 hidden lg:block">
             {new Date().toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
         </header>
