@@ -52,7 +52,7 @@ const App: React.FC = () => {
       <div className={`min-h-screen theme-${theme}`}>
         <LoginPage onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }} lang={lang} setLang={setLang} />
         <style>{`
-          * { font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif; }
+          * { font-family: 'Tajawal', sans-serif; }
           body { margin: 0; line-height: 1.6; }
           [dir="rtl"] { line-height: 1.8; }
         `}</style>
@@ -91,7 +91,7 @@ const App: React.FC = () => {
       </main>
 
       <style>{`
-        :root { --font-main: 'Inter', 'IBM Plex Sans Arabic', sans-serif; }
+        :root { --font-main: 'Tajawal', sans-serif; }
         * { font-family: var(--font-main); box-sizing: border-box; scroll-behavior: smooth; }
         
         /* Arabic Typography Fix */
