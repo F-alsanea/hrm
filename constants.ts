@@ -1,13 +1,13 @@
 import { MessageType, Template } from './types';
 
 export const LOCATIONS = [
-  { id: 'office', name: { ar: 'الإدارة الرئيسية', en: 'Head Office' }, link: 'https://share.google/bORxL7ia6bWP2Ra6g' },
-  { id: 'zikaki', name: { ar: 'مطعم زيكاكي', en: 'Zikaki Restaurant' }, link: 'https://share.google/V9wxnLOl7LOT4nk2Z' },
-  { id: 'shorafa', name: { ar: 'قاعة الشرافة', en: 'Al Shorafa Hall' }, link: 'https://share.google/4TycEk9aGKDDfRfBp' },
-  { id: 'stagioni', name: { ar: 'مطعم سيزيوني', en: 'Stagioni Restaurant' }, link: 'https://share.google/C8S6VVZXWLxiot5mm' },
-  { id: 'albay_m', name: { ar: 'مخبز الباي المحمدية', en: 'Al Bay Bakery - Muhammadiyah' }, link: 'https://share.google/UwGTtXp90Mwiyrnjm' },
-  { id: 'albay_z', name: { ar: 'مخبز الباي الزهراء', en: 'Al Bay Bakery - Al Zahra' }, link: 'https://share.google/nuEnFBcWqfOM7Oa6C' },
-  { id: 'gabbiano', name: { ar: 'مطعم الجبيانو', en: 'Il Gabbiano Restaurant' }, link: 'https://share.google/819Ygav1fCeM5b51o' },
+  { id: 'office', name: { ar: 'الإدارة الرئيسية', en: 'Head Office' }, link: 'https://maps.app.goo.gl/EoiSqTWpTsgZz38w8' },
+  { id: 'zikaki', name: { ar: 'مطعم زيكاكي', en: 'Zikaki Restaurant' }, link: 'https://maps.app.goo.gl/t4gCLttTddFEVJz4A' },
+  { id: 'shorafa', name: { ar: 'قاعة الشرافة', en: 'Al Shorafa Hall' }, link: 'https://maps.app.goo.gl/TxzTcDpuHGqfsTiK6' },
+  { id: 'stagioni', name: { ar: 'مطعم سيزيوني', en: 'Sezione Restaurant' }, link: 'https://maps.app.goo.gl/t2yjnGVrbGWiUeE26' },
+  { id: 'albay_m', name: { ar: 'مخبز الباي المحمدية', en: 'Al Bay Bakery - Muhammadiyah' }, link: 'https://maps.app.goo.gl/H1S2hSiQaVwqoJ8P8' },
+  { id: 'albay_z', name: { ar: 'مخبز الباي الزهراء', en: 'Al Bay Bakery - Al Zahra' }, link: 'https://maps.app.goo.gl/w4yKtuHm8BftGGww7' },
+  { id: 'gabbiano', name: { ar: 'مطعم الجبيانو', en: 'Il Gabbiano Restaurant' }, link: 'https://maps.app.goo.gl/DWC3G4MH4XDVR1Ww9' },
 ];
 
 export const DAYS = [
