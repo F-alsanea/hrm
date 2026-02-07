@@ -229,14 +229,25 @@ const App: React.FC = () => {
           border: 1px solid rgba(0,0,0,0.1); 
           transition: all 0.2s ease; 
           border-radius: 1rem; 
-          padding: 0.8rem 1.2rem; 
+          padding: 0.8rem 1rem; 
           font-weight: 600;
           outline: none;
           font-size: 14px;
+          width: 100%;
         }
+
+        select {
+          appearance: auto;
+          direction: rtl;
+          text-align: right;
+          padding-right: 1rem;
+        }
+
         select option {
           background-color: var(--bg-input);
           color: var(--text-input);
+          direction: rtl;
+          text-align: right;
         }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
