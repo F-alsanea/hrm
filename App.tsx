@@ -240,7 +240,16 @@ const App: React.FC = () => {
           appearance: auto;
           direction: rtl;
           text-align: right;
-          padding-right: 1rem;
+          padding-right: 1rem !important;
+          padding-left: 2.5rem !important;
+          text-overflow: ellipsis;
+        }
+
+        [dir="ltr"] select {
+          direction: ltr;
+          text-align: left;
+          padding-left: 1rem !important;
+          padding-right: 2.5rem !important;
         }
 
         select option {
