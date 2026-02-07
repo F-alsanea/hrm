@@ -58,21 +58,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-4 md:p-6 space-y-4">
         <div className="bg-black/10 p-5 rounded-[1.5rem] border border-white/5 space-y-5">
           <div className="flex flex-col gap-3">
-            <span className="text-[8px] text-white/30 font-black uppercase tracking-wider">{t.theme}</span>
-            <div className="flex bg-black/20 p-1 rounded-xl border border-white/5">
-              {(['light', 'dark', 'sepia'] as ThemeMode[]).map(m => (
-                <button
-                  key={m}
-                  onClick={() => setTheme(m)}
-                  className={`flex-1 py-2 rounded-lg text-[8px] font-black transition-all ${theme === m ? 'bg-white text-blue-900 shadow-md' : 'text-white/20 hover:text-white/40'}`}
-                >
-                  {t[m]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
             <span className="text-[8px] text-white/30 font-black uppercase tracking-wider">{t.lang}</span>
             <button
               onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}

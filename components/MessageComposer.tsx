@@ -151,7 +151,7 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
                 {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
                   <div className="space-y-3">
                     <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اسم الموقع' : 'LOCATION NAME'}</label>
-                    <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-6 py-4 rounded-xl border-none shadow-md font-bold">
+                    <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className={`w-full ${lang === 'ar' ? 'pr-4 pl-10' : 'pl-4 pr-10'} py-4 rounded-2xl font-bold cursor-pointer transition-all shadow-lg border-none`}>
                       {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
                     </select>
                   </div>
