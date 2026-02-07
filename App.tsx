@@ -7,6 +7,30 @@ import { TemplateViewer } from './components/TemplateViewer';
 import { LoginPage } from './components/LoginPage';
 import { translations } from './translations';
 
+const Signature: React.FC<{ lang: 'ar' | 'en'; theme: ThemeMode }> = ({ lang, theme }) => {
+  return (
+    <div className="fixed bottom-6 w-full flex justify-center z-[100] pointer-events-none no-print">
+      <a
+        href="https://www.linkedin.com/in/falsanea/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`
+          pointer-events-auto px-6 py-3 rounded-full border backdrop-blur-xl
+          transition-all duration-500 hover:scale-110 hover:shadow-2xl flex items-center gap-3 text-sm font-black
+          ${theme === 'light' ? 'bg-white/95 border-slate-300 text-[#0F172A] shadow-xl shadow-slate-200/50' :
+            'bg-[#020617]/90 border-slate-700 text-[#F1F5F9] shadow-2xl'}
+        `}
+      >
+        <span className="opacity-60">{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
+        <div className={`w-px h-4 ${theme === 'light' ? 'bg-[#0F172A]/20' : 'bg-white/20'}`} />
+        <span className={theme === 'light' ? 'text-indigo-700' : 'text-indigo-300'}>
+          {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
+        </span>
+      </a>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [lang, setLang] = useState<Language>('ar');
@@ -51,6 +75,7 @@ const App: React.FC = () => {
     return (
       <div className={`min-h-screen theme-${theme}`}>
         <LoginPage onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }} lang={lang} setLang={setLang} />
+        <Signature lang={lang} theme={theme} />
         <style>{`
           * { font-family: 'Tajawal', sans-serif; }
           body { margin: 0; line-height: 1.6; }
@@ -85,9 +110,7 @@ const App: React.FC = () => {
           {activeTab === 'templates' && canViewTemplates && <TemplateViewer lang={lang} t={t} />}
         </div>
 
-        <footer className="mt-12 py-8 text-center border-t border-white/5 text-muted text-[10px] font-black tracking-[0.4em] uppercase opacity-50">
-          {t.madeBy} <a href="https://www.linkedin.com/in/falsanea/" target="_blank" rel="noopener noreferrer" className="text-heading hover:opacity-100 transition-all border-b border-transparent hover:border-current">{t.author}</a>
-        </footer>
+        <Signature lang={lang} theme={theme} />
       </main>
 
       <style>{`
