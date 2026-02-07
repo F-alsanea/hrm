@@ -58,22 +58,22 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang, th
   };
 
   const inputClasses = `w-full p-5 pr-14 rounded-[1.5rem] border-2 font-black outline-none transition-all duration-300 ${theme === 'light'
-      ? 'bg-slate-50/50 border-slate-100 focus:border-indigo-500 focus:bg-white text-slate-900'
-      : 'bg-black/20 border-white/5 focus:border-indigo-500/50 focus:bg-black/40 text-white'
+    ? 'bg-slate-50/50 border-slate-100 focus:border-indigo-500 focus:bg-white text-slate-900'
+    : 'bg-black/20 border-white/5 focus:border-indigo-500/50 focus:bg-black/40 text-white'
     }`;
 
   return (
-    <div className="w-full max-w-xl p-4 animate-fadeIn">
-      <div className={`p-10 md:p-16 rounded-[4rem] border backdrop-blur-3xl shadow-2xl relative overflow-hidden transition-all duration-700 ${theme === 'light' ? 'bg-white/80 border-white shadow-slate-200/50' :
-          theme === 'dark' ? 'bg-slate-950/70 border-white/10 shadow-black/40' :
-            'bg-indigo-950/60 border-indigo-400/20 shadow-indigo-950/50'
+    <div className="w-full max-w-lg p-4 animate-fadeIn">
+      <div className={`p-8 md:p-10 rounded-[2.5rem] border backdrop-blur-3xl shadow-2xl relative overflow-hidden transition-all duration-700 ${theme === 'light' ? 'bg-white/80 border-white shadow-slate-200/50' :
+        theme === 'dark' ? 'bg-slate-950/70 border-white/10 shadow-black/40' :
+          'bg-indigo-950/60 border-indigo-400/20 shadow-indigo-950/50'
         }`}>
         {/* Top bar with Theme and Lang */}
-        <div className="flex justify-between items-center mb-16">
+        <div className="flex justify-between items-center mb-10">
           <ThemeSwitcher theme={theme} setTheme={setTheme} />
           <button
             onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-            className={`px-6 py-2.5 rounded-2xl border font-bold text-[10px] uppercase tracking-widest transition-all ${theme === 'light' ? 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100' : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+            className={`px-5 py-2 rounded-xl border font-bold text-[10px] uppercase tracking-widest transition-all ${theme === 'light' ? 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100' : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
               }`}
           >
             {lang === 'ar' ? 'English' : 'العربية'}
@@ -81,21 +81,21 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang, th
         </div>
 
         {/* Branding */}
-        <div className="text-right mb-12">
-          <div className="flex items-center justify-end gap-6 mb-8 group">
-            <div className="text-right">
-              <h2 className={`text-4xl font-black mb-2 tracking-tight ${theme === 'light' ? 'text-slate-900' : 'text-white'}`}>{t.title}</h2>
-              <p className={`text-[11px] font-black uppercase tracking-[0.3em] ${theme === 'light' ? 'text-slate-400' : 'text-indigo-300/60'}`}>{t.subtitle}</p>
+        <div className="text-center mb-10">
+          <div className="flex flex-col items-center gap-4 group">
+            <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-500">🏢</div>
+            <div className="text-center">
+              <h2 className={`text-xl font-black mb-1 tracking-tight ${theme === 'light' ? 'text-slate-900' : 'text-white'}`}>{t.title}</h2>
+              {t.subtitle && <p className={`text-[9px] font-black uppercase tracking-[0.3em] ${theme === 'light' ? 'text-slate-400' : 'text-indigo-300/60'}`}>{t.subtitle}</p>}
             </div>
-            <div className="w-20 h-20 bg-indigo-600 rounded-[2rem] flex items-center justify-center text-white text-4xl shadow-2xl group-hover:scale-110 transition-transform duration-500">🏢</div>
           </div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-8">
-          <div className="space-y-3">
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-2">
             <label className={`block text-[10px] font-black uppercase tracking-[0.2em] px-4 ${theme === 'light' ? 'text-slate-400' : 'text-white/30'}`}>{t.username}</label>
             <div className="relative">
-              <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-30 text-xl pointer-events-none">👤</span>
+              <span className="absolute right-5 top-1/2 -translate-y-1/2 opacity-30 text-lg pointer-events-none">👤</span>
               <input
                 type="text"
                 value={username}
@@ -107,10 +107,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang, th
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             <label className={`block text-[10px] font-black uppercase tracking-[0.2em] px-4 ${theme === 'light' ? 'text-slate-400' : 'text-white/30'}`}>{t.password}</label>
             <div className="relative">
-              <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-30 text-xl pointer-events-none">🔒</span>
+              <span className="absolute right-5 top-1/2 -translate-y-1/2 opacity-30 text-lg pointer-events-none">🔒</span>
               <input
                 type="password"
                 value={password}
@@ -123,17 +123,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, lang, setLang, th
           </div>
 
           {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-2xl text-[10px] font-black text-center uppercase tracking-widest animate-pulse">
+            <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-3 rounded-xl text-[10px] font-black text-center uppercase tracking-widest animate-pulse">
               {error}
             </div>
           )}
 
           <button
             type="submit"
-            className="w-full py-6 bg-indigo-600 hover:bg-indigo-500 text-white rounded-[1.8rem] font-black shadow-[0_20px_40px_rgba(79,70,229,0.3)] transform transition-all active:scale-[0.98] text-xl uppercase tracking-widest flex items-center justify-center gap-3"
+            className="w-full py-5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-black shadow-[0_15px_30px_rgba(79,70,229,0.25)] transform transition-all active:scale-[0.98] text-lg uppercase tracking-widest flex items-center justify-center gap-3"
           >
             {t.login}
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-50"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-50"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
           </button>
         </form>
       </div>
