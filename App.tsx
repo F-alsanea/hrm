@@ -9,18 +9,35 @@ import { translations } from './translations';
 
 const Signature: React.FC<{ lang: 'ar' | 'en'; theme: ThemeMode }> = ({ lang, theme }) => {
   return (
-    <div className="py-8 text-center select-none no-print mt-auto">
-      <div className={`inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 transition-opacity hover:opacity-100 ${theme === 'light' ? 'text-slate-900' : 'text-white'}`}>
-        <span>{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
-        <a
-          href="https://www.linkedin.com/in/falsanea/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:underline underline-offset-4"
-        >
+    <div className="fixed bottom-6 w-full flex justify-center z-[100] pointer-events-none no-print">
+      <a
+        href="https://www.linkedin.com/in/falsanea/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`
+          pointer-events-auto px-6 py-3 rounded-full border backdrop-blur-xl
+          transition-all duration-500 hover:scale-110 hover:shadow-2xl flex items-center gap-3 text-sm font-black
+          ${theme === 'light' ? 'bg-white/95 border-slate-300 text-[#0F172A] shadow-xl shadow-slate-200/50' :
+            theme === 'dark' ? 'bg-[#020617]/90 border-slate-700 text-[#F1F5F9] shadow-2xl' :
+              'bg-[#1E1B4B]/95 border-indigo-400/40 text-[#E0E7FF] shadow-[0_0_30px_rgba(79,70,229,0.4)]'}
+        `}
+      >
+        <span className="opacity-60">{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
+        <div className={`w-px h-4 ${theme === 'light' ? 'bg-[#0F172A]/20' : 'bg-white/20'}`} />
+        <span className={theme === 'light' ? 'text-indigo-700' : 'text-indigo-300'}>
           {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
-        </a>
-      </div>
+        </span>
+      </a>
+    </div>
+  );
+};
+
+const ThemeSwitcher: React.FC<{ theme: ThemeMode; setTheme: (t: ThemeMode) => void }> = ({ theme, setTheme }) => {
+  return (
+    <div className="flex bg-black/10 backdrop-blur-xl p-1.5 rounded-2xl border border-current/10 no-print shadow-xl">
+      <button onClick={() => setTheme('light')} className={`p-2 rounded-xl transition-all ${theme === 'light' ? 'bg-white text-indigo-600 shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>☀️</button>
+      <button onClick={() => setTheme('dusk')} className={`p-2 rounded-xl transition-all ${theme === 'dusk' ? 'bg-indigo-600 text-white shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>⛅</button>
+      <button onClick={() => setTheme('dark')} className={`p-2 rounded-xl transition-all ${theme === 'dark' ? 'bg-slate-800 text-indigo-400 shadow-md scale-110' : 'opacity-40 hover:opacity-100'}`}>🌙</button>
     </div>
   );
 };
@@ -67,15 +84,24 @@ const App: React.FC = () => {
 
   if (!user) {
     return (
-      <div className={`min-h-screen theme-${theme} flex flex-col justify-between`}>
-        <div className="flex-1 flex items-center justify-center">
-          <LoginPage onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }} lang={lang} setLang={setLang} />
+      <div className={`min-h-screen theme-${theme} flex items-center justify-center p-6 relative overflow-hidden transition-all duration-700`}>
+        <div className="z-10 w-full flex flex-col items-center gap-8">
+          <LoginPage
+            onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }}
+            lang={lang}
+            setLang={setLang}
+            theme={theme}
+            setTheme={setTheme}
+          />
         </div>
         <Signature lang={lang} theme={theme} />
         <style>{`
           * { font-family: 'Tajawal', sans-serif; }
-          body { margin: 0; line-height: 1.6; }
-          [dir="rtl"] { line-height: 1.8; }
+          body { 
+            margin: 0; 
+            background: ${theme === 'light' ? '#F1F5F9' : theme === 'dark' ? '#020617' : '#1E1B4B'} !important;
+            transition: background 0.5s ease;
+          }
         `}</style>
       </div>
     );
@@ -90,9 +116,12 @@ const App: React.FC = () => {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} user={user} onLogout={handleLogout} theme={theme} setTheme={setTheme} lang={lang} setLang={setLang} t={t} access={{ canCompose, canViewHistory, canViewTemplates }} />
       <main className="flex-1 p-4 md:p-8 lg:p-10 overflow-y-auto flex flex-col relative">
         <header className="mb-6 md:mb-8 flex flex-row justify-between items-center gap-6 animate-fadeIn">
-          <div>
-            <h1 className="text-2xl md:text-4xl font-black text-heading drop-shadow-sm tracking-tight leading-tight">{t.title}</h1>
-            <p className="text-muted text-[10px] md:text-xs font-bold mt-1 uppercase tracking-[0.2em] opacity-80">{t.subtitle}</p>
+          <div className="flex items-center gap-6">
+            <ThemeSwitcher theme={theme} setTheme={setTheme} />
+            <div>
+              <h1 className="text-2xl md:text-4xl font-black text-heading drop-shadow-sm tracking-tight leading-tight">{t.title}</h1>
+              <p className="text-muted text-[10px] md:text-xs font-bold mt-1 uppercase tracking-[0.2em] opacity-80">{t.subtitle}</p>
+            </div>
           </div>
           <div className="bg-white/5 backdrop-blur-xl px-4 py-2 rounded-xl text-heading text-[10px] font-black border border-white/10 shadow-lg uppercase tracking-wider transition-transform hover:scale-105 duration-300 hidden sm:block">
             {new Date().toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
@@ -146,6 +175,17 @@ const App: React.FC = () => {
           --bg-input: #1e293b; 
           --text-input: #f8fafc;
           --bg-sidebar: #020617;
+        }
+        .theme-dusk { 
+          --bg-page: #1e1b4b; 
+          --bg-glass: rgba(30, 27, 75, 0.4); 
+          --bg-glass-solid: rgba(30, 27, 75, 0.8);
+          --text-heading: #e0e7ff; 
+          --text-muted: #a5b4fc; 
+          --border-glass: rgba(255, 255, 255, 0.15); 
+          --bg-input: #312e81; 
+          --text-input: #e0e7ff;
+          --bg-sidebar: #1e1b4b;
         }
         
         .bg-page { background-color: var(--bg-page); }
