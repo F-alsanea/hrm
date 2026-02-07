@@ -9,38 +9,18 @@ import { translations } from './translations';
 
 const Signature: React.FC<{ lang: 'ar' | 'en'; theme: ThemeMode }> = ({ lang, theme }) => {
   return (
-    <div className="fixed bottom-8 w-full flex justify-center z-[100] pointer-events-none no-print px-4">
-      <a
-        href="https://www.linkedin.com/in/falsanea/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`
-          pointer-events-auto px-5 py-2.5 rounded-2xl border backdrop-blur-2xl
-          transition-all duration-500 hover:scale-105 hover:-translate-y-1 group
-          flex items-center gap-4 text-sm
-          ${theme === 'light'
-            ? 'bg-white/70 border-white/50 text-slate-900 shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)]'
-            : 'bg-slate-900/60 border-white/10 text-white shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]'}
-        `}
-      >
-        <div className="flex flex-col items-start leading-tight">
-          <span className="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-0.5">
-            {lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}
-          </span>
-          <span className="font-black text-base tracking-tight">
-            {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
-          </span>
-        </div>
-
-        <div className={`
-          w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-500
-          ${theme === 'light' ? 'bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white' : 'bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white'}
-        `}>
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-        </div>
-      </a>
+    <div className="py-8 text-center select-none no-print mt-auto">
+      <div className={`inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 transition-opacity hover:opacity-100 ${theme === 'light' ? 'text-slate-900' : 'text-white'}`}>
+        <span>{lang === 'ar' ? 'تصميم وتطوير' : 'Designed & Developed by'}</span>
+        <a
+          href="https://www.linkedin.com/in/falsanea/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline underline-offset-4"
+        >
+          {lang === 'ar' ? 'فيصل السني' : 'Faisal Alsanea'}
+        </a>
+      </div>
     </div>
   );
 };
@@ -87,8 +67,10 @@ const App: React.FC = () => {
 
   if (!user) {
     return (
-      <div className={`min-h-screen theme-${theme}`}>
-        <LoginPage onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }} lang={lang} setLang={setLang} />
+      <div className={`min-h-screen theme-${theme} flex flex-col justify-between`}>
+        <div className="flex-1 flex items-center justify-center">
+          <LoginPage onLogin={(u) => { setUser(u); localStorage.setItem('alkaki_user', JSON.stringify(u)); }} lang={lang} setLang={setLang} />
+        </div>
         <Signature lang={lang} theme={theme} />
         <style>{`
           * { font-family: 'Tajawal', sans-serif; }
