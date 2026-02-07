@@ -96,7 +96,7 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
             <div className="space-y-8">
               <div className="space-y-3">
                 <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'نوع الرسالة' : 'MESSAGE TYPE'}</label>
-                <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full px-6 py-4 rounded-2xl font-bold cursor-pointer transition-all shadow-lg border-none">
+                <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className="w-full px-4 py-4 rounded-xl font-bold cursor-pointer transition-all shadow-lg border-none text-center">
                   {Object.values(MessageType).map(type => <option key={type} value={type}>{type}</option>)}
                 </select>
               </div>
@@ -151,7 +151,7 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
                 {(formData.type === MessageType.INTERVIEW || formData.type === MessageType.REMINDER) && (
                   <div className="space-y-3">
                     <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اسم الموقع' : 'LOCATION NAME'}</label>
-                    <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as MessageType })} className={`w-full ${lang === 'ar' ? 'pr-4 pl-10' : 'pl-4 pr-10'} py-4 rounded-2xl font-bold cursor-pointer transition-all shadow-lg border-none`}>
+                    <select value={formData.locationId} onChange={(e) => setFormData({ ...formData, locationId: e.target.value })} className="w-full px-4 py-4 rounded-xl border-none shadow-md font-bold text-center">
                       {LOCATIONS.map(loc => <option key={loc.id} value={loc.id}>{loc.name[lang]}</option>)}
                     </select>
                   </div>
@@ -160,17 +160,17 @@ export const MessageComposer: React.FC<MessageComposerProps> = ({ onSend, lang, 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5 animate-fadeIn">
                     <div className="space-y-3">
                       <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'التاريخ' : 'DATE'}</label>
-                      <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none text-sm" />
+                      <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none text-sm text-center" />
                     </div>
                     <div className="space-y-3">
                       <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'اليوم' : 'DAY'}</label>
-                      <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none font-bold text-sm">
+                      <select value={formData.day} onChange={(e) => setFormData({ ...formData, day: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none font-bold text-sm text-center">
                         {DAYS.map(day => <option key={day.en} value={day[lang]}>{day[lang]}</option>)}
                       </select>
                     </div>
                     <div className="space-y-3">
                       <label className="block text-[9px] font-black text-muted uppercase tracking-wider ml-1">{lang === 'ar' ? 'الوقت' : 'TIME'}</label>
-                      <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none font-bold text-sm">
+                      <select value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full px-5 py-4 rounded-xl shadow-sm border-none font-bold text-sm text-center">
                         {timeOptions.map(to => <option key={to.en} value={to[lang]}>{to[lang]}</option>)}
                       </select>
                     </div>
