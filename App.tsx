@@ -238,15 +238,34 @@ const App: React.FC = () => {
         }
 
         select {
-          appearance: auto;
-          text-align: center;
-          padding: 0.8rem 2rem;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-repeat: no-repeat;
+          background-size: 1.1rem;
+          background-position: left 1.2rem center;
+          padding-left: 3.5rem !important;
+          padding-right: 1.5rem !important;
+          text-align: right;
+          cursor: pointer;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-opacity='0.4' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        [dir="ltr"] select {
+          background-position: right 1.2rem center;
+          padding-right: 3.5rem !important;
+          padding-left: 1.5rem !important;
+          text-align: left;
+        }
+
+        .theme-dark select, .theme-dusk select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-opacity='0.4' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
         }
 
         select option {
           background-color: var(--bg-input);
           color: var(--text-input);
-          text-align: center;
+          padding: 10px;
         }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
