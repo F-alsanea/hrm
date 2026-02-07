@@ -234,29 +234,19 @@ const App: React.FC = () => {
           outline: none;
           font-size: 14px;
           width: 100%;
+          line-height: normal;
         }
 
         select {
           appearance: auto;
-          direction: rtl;
-          text-align: right;
-          padding-right: 1rem !important;
-          padding-left: 2.5rem !important;
-          text-overflow: ellipsis;
-        }
-
-        [dir="ltr"] select {
-          direction: ltr;
-          text-align: left;
-          padding-left: 1rem !important;
-          padding-right: 2.5rem !important;
+          text-align: center;
+          padding: 0.8rem 2rem;
         }
 
         select option {
           background-color: var(--bg-input);
           color: var(--text-input);
-          direction: rtl;
-          text-align: right;
+          text-align: center;
         }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
