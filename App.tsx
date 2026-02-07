@@ -171,6 +171,7 @@ const App: React.FC = () => {
         body { margin: 0; line-height: 1.6; background: #0f172a; color: #f8fafc; overflow-x: hidden; }
         
         .theme-light { 
+          color-scheme: light;
           --bg-page: #f1f5f9; 
           --bg-glass: rgba(255, 255, 255, 0.45); 
           --bg-glass-solid: rgba(255, 255, 255, 0.85);
@@ -182,6 +183,7 @@ const App: React.FC = () => {
           --bg-sidebar: #1e293b;
         }
         .theme-dark { 
+          color-scheme: dark;
           --bg-page: #0f172a; 
           --bg-glass: rgba(15, 23, 42, 0.4); 
           --bg-glass-solid: rgba(15, 23, 42, 0.8);
@@ -193,6 +195,7 @@ const App: React.FC = () => {
           --bg-sidebar: #020617;
         }
         .theme-dusk { 
+          color-scheme: dark;
           --bg-page: #1e1b4b; 
           --bg-glass: rgba(30, 27, 75, 0.4); 
           --bg-glass-solid: rgba(30, 27, 75, 0.8);
@@ -243,19 +246,20 @@ const App: React.FC = () => {
           -moz-appearance: none;
           background-repeat: no-repeat;
           background-size: 1.1rem;
-          background-position: left 1.2rem center;
-          padding-left: 3.5rem !important;
-          padding-right: 1.5rem !important;
-          text-align: right;
+          text-align: center;
           cursor: pointer;
+          padding-top: 0.8rem;
+          padding-bottom: 0.8rem;
+          padding-inline-start: 3.5rem;
+          padding-inline-end: 1.5rem;
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-opacity='0.4' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+          background-position: left 1.2rem center;
         }
 
         [dir="ltr"] select {
+          padding-inline-start: 3.5rem;
+          padding-inline-end: 1.5rem;
           background-position: right 1.2rem center;
-          padding-right: 3.5rem !important;
-          padding-left: 1.5rem !important;
-          text-align: left;
         }
 
         .theme-dark select, .theme-dusk select {
@@ -265,7 +269,8 @@ const App: React.FC = () => {
         select option {
           background-color: var(--bg-input);
           color: var(--text-input);
-          padding: 10px;
+          text-align: center;
+          padding: 12px;
         }
         .theme-dark input, .theme-dark select, .theme-dark textarea {
           border-color: rgba(255,255,255,0.1);
